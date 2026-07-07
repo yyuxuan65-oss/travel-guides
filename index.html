@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🏔️ 成都+重庆 9天硬核攻略 | 奥太娜·天眼洞·三峡之巅</title>
+<style>
+  :root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #0f3460;
+    --accent: #3b7cff;
+    --accent-glow: rgba(59,124,255,0.25);
+    --accent-light: #5b9bff;
+    --text-primary: #e8e8f0;
+    --text-secondary: #a0a0b8;
+    --text-muted: #6a6a80;
+    --danger: #ff4757;
+    --danger-glow: rgba(255,71,87,0.2);
+    --warning: #ffa502;
+    --success: #2ed573;
+    --border: rgba(255,255,255,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+  .container {
+    width: 100%;
+    max-width: 480px;
+    padding: 0 16px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 32px 0 20px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    border-radius: 2px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e0e8ff, #3b7cff, #a0c4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .header .subtitle {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  /* ── Risk Alert ── */
+  .risk-alert {
+    background: linear-gradient(135deg, #2d1a22, #3d1f2a);
+    border: 1.5px solid var(--danger);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .risk-alert::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, var(--danger-glow) 0%, transparent 70%);
+    animation: pulse-warn 3s ease-in-out infinite;
+  }
+  @keyframes pulse-warn {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+  .risk-alert * { position: relative; z-index: 1; }
+  .risk-alert .risk-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--danger);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .risk-alert .risk-list {
+    list-style: none;
+    font-size: 13px;
+    color: #f0c0c8;
+    line-height: 1.9;
+  }
+  .risk-alert .risk-list li::before {
+    content: '⚠️ ';
+    color: var(--warning);
+  }
+  .risk-alert .risk-backup {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(255,165,2,0.1);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--warning);
+    font-size: 12.5px;
+    color: #ffc048;
+  }
+
+  /* ── Day cards ── */
+  .day-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: border-color 0.3s;
+  }
+  .day-card:hover {
+    border-color: rgba(59,124,255,0.3);
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    user-select: none;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  }
+  .day-header .day-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #1a5fd4);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .day-header .day-info { flex:1; min-width:0; }
+  .day-header .day-label {
+    font-size: 12px;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .day-header .day-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .day-header .day-arrow {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: transform 0.3s;
+  }
+  .day-card.open .day-arrow { transform: rotate(180deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .day-card.open .day-body { display: block; }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+    margin: 14px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 4px; bottom: 4px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg-secondary);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .tl-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-light);
+    letter-spacing: 0.5px;
+  }
+  .tl-desc { color: var(--text-secondary); }
+
+  /* ── Info sections ── */
+  .info-block {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: rgba(15,52,96,0.5);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+  }
+  .info-block .info-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .info-block .info-content { color: var(--text-secondary); line-height: 1.8; }
+  .info-block .info-content strong { color: var(--text-primary); }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px 4px 2px 0;
+  }
+  .tag-transport { background: rgba(59,124,255,0.15); color: var(--accent-light); }
+  .tag-cost { background: rgba(46,213,115,0.15); color: var(--success); }
+  .tag-tip { background: rgba(255,165,2,0.15); color: var(--warning); }
+  .tag-highlight { background: rgba(255,71,87,0.12); color: #ff6b7a; }
+
+  /* ── Bottom Nav ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(22,33,62,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 4px 12px;
+    z-index: 100;
+  }
+  .bottom-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    min-width: 34px;
+  }
+  .bottom-nav a:hover, .bottom-nav a.active {
+    color: var(--accent-light);
+    background: rgba(59,124,255,0.12);
+  }
+  .bottom-nav a .nav-icon { font-size: 16px; }
+
+  /* ── Divider ── */
+  .section-divider {
+    text-align: center;
+    margin: 18px 0;
+    position: relative;
+  }
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-divider span {
+    position: relative;
+    background: var(--bg-primary);
+    padding: 0 14px;
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  /* ── Tips box ── */
+  .tips-box {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(255,165,2,0.06);
+    border-radius: var(--radius-sm);
+    border: 1px dashed rgba(255,165,2,0.2);
+    font-size: 12.5px;
+    color: var(--text-secondary);
+  }
+  .tips-box strong { color: var(--warning); }
+
+  /* ── Highlight badge ── */
+  .highlight-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Day card special accents ── */
+  .day-card.day-climb .day-num { background: linear-gradient(135deg, #ff6b7a, #d63031); }
+  .day-card.day-cave .day-num { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+  .day-card.day-museum .day-num { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+  .day-card.day-summit .day-header { background: linear-gradient(135deg, #1a1a2e, #2d1b1b); }
+
+  /* ── Responsive fine-tuning ── */
+  @media (max-width: 380px) {
+    .header h1 { font-size: 22px; }
+    .day-header { padding: 12px 14px; }
+    .day-body { padding: 0 14px 14px; }
+    .day-header .day-num { width: 36px; height: 36px; font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <div class="header">
+    <h1>🏔️ 成都+重庆 9天硬核攻略</h1>
+    <div class="subtitle">奥太娜5210 · 天眼洞岩降 · 三峡之巅徒步</div>
+  </div>
+
+  <!-- ═══════════════ RISK ALERT ═══════════════ -->
+  <div class="risk-alert">
+    <div class="risk-title">⚠️ 8月雨季 · 重要风险提示</div>
+    <ul class="risk-list">
+      <li>8月是川西雨季高峰，奥太娜攀登风险大增：泥石流、滑坡、能见度低、登顶概率大幅下降</li>
+      <li>强烈建议购买高海拔登山保险（含直升机救援），必须聘请当地持证向导</li>
+      <li>天眼洞岩降需至少提前7天预约专业教练团队，确认装备完好</li>
+      <li>出发前密切关注黑水县及奉节县天气预报，随身携带雨具+防水装备</li>
+    </ul>
+    <div class="risk-backup">
+      🅱️ <strong>天气备选方案：</strong>如遇恶劣天气无法攀登奥太娜，可改为四姑娘山大峰/二峰（需提前联系）或取消攀登改为成都周边（青城山+都江堰+熊猫基地2日游）
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 1 ═══════════════ -->
+  <div class="day-card open" id="day1">
+    <div class="day-header" onclick="toggleDay('day1')">
+      <div class="day-num">1</div>
+      <div class="day-info">
+        <div class="day-label">Day 1 · 抵达成都</div>
+        <div class="day-title">✈️ 福州→成都 · 市区初探</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-10:30</div>
+          <div class="tl-desc">福州长乐机场 ✈️ 成都双流/天府机场（约3h）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00-13:00</div>
+          <div class="tl-desc">机场→市区酒店入住，轻轨/打车（约40-60min）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00-15:30</div>
+          <div class="tl-desc">🏙️ <strong>太古里+IFS</strong> · 爬墙熊猫打卡，时尚潮人聚集地</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:30-17:30</div>
+          <div class="tl-desc">🏮 <strong>宽窄巷子</strong> · 明清古街，掏耳朵+盖碗茶体验</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">17:30-19:30</div>
+          <div class="tl-desc">🏮 <strong>锦里古街</strong> · 三国文化街区，红灯笼夜景绝美</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">19:30-21:00</div>
+          <div class="tl-desc">🍲 <strong>成都火锅</strong> · 推荐小龙坎/大龙燚/蜀大侠，微辣起步！</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">✈️ 机票</span> 福州→成都 约 ¥800-1500/人<br>
+          <span class="tag tag-transport">🚇 地铁</span> 机场→市区 约 ¥10/人
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">住宿 ¥300-500 + 交通 ¥20 + 餐饮 ¥150 + 景点免费 ≈ <strong>¥500-700/人</strong></div>
+      </div>
+      <div class="tips-box">
+        💡 <strong>Tips：</strong>火锅选"微辣"先试探，成都微辣=外地中辣！太古里、宽窄巷子、锦里均免费。住宿建议春熙路/太古里附近。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 2 ═══════════════ -->
+  <div class="day-card day-museum" id="day2">
+    <div class="day-header" onclick="toggleDay('day2')">
+      <div class="day-num">2</div>
+      <div class="day-info">
+        <div class="day-label">Day 2 · 博物馆日</div>
+        <div class="day-title">🏛️ 三星堆+金沙 · 古蜀文明</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-08:30</div>
+          <div class="tl-desc">成都出发→广汉三星堆博物馆（高铁/自驾约1h）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:30-12:30</div>
+          <div class="tl-desc">🔮 <strong>三星堆博物馆</strong> · 青铜神树、青铜大立人、黄金面具</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:30-13:30</div>
+          <div class="tl-desc">广汉午餐 · 推荐广汉缠丝兔</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:30-14:30</div>
+          <div class="tl-desc">广汉→成都青羊区（返回市区）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:30-17:00</div>
+          <div class="tl-desc">☀️ <strong>金沙遗址博物馆</strong> · 太阳神鸟金饰（中国文化遗产标志）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">17:00-19:00</div>
+          <div class="tl-desc">晚餐 · 推荐成都串串香/钵钵鸡</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🏛️ 景点介绍</div>
+        <div class="info-content">
+          <strong>三星堆</strong>：古蜀文明巅峰，"一醒惊天下"。青铜神树、纵目面具、黄金权杖。新馆2023年开放，展陈一流。<br>
+          <strong>金沙遗址</strong>：继三星堆之后的古蜀都邑，太阳神鸟金饰出土地，厚度仅0.02cm的惊世之作。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚄 高铁</span> 成都东→广汉北 ¥20/人（20min）<br>
+          <span class="tag tag-transport">🚗 自驾/打车</span> 约1h，¥150-200
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">三星堆门票 ¥72 + 金沙门票 ¥70 + 交通 ¥50 + 餐饮 ¥100 ≈ <strong>¥292/人</strong></div>
+      </div>
+      <div class="tips-box">
+        ⚠️ <strong>Tips：</strong>三星堆必须提前3天在微信公众号「三星堆博物馆」预约！暑期一票难求。两馆均有语音导览租赁（¥20-30），强烈推荐。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 3 ═══════════════ -->
+  <div class="day-card day-climb" id="day3">
+    <div class="day-header" onclick="toggleDay('day3')">
+      <div class="day-num">3</div>
+      <div class="day-info">
+        <div class="day-label">Day 3 · 进山</div>
+        <div class="day-title">🏔️ 成都→黑水 · 奥太娜基地</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="highlight-badge">🧗 本次旅程核心挑战开始</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">06:00-07:00</div>
+          <div class="tl-desc">早起，成都出发（包车/自驾）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">07:00-12:00</div>
+          <div class="tl-desc">🚙 成都→黑水县，经都汶高速+G347国道，约5-6h</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00-13:00</div>
+          <div class="tl-desc">抵达黑水县城（海拔约2400m），午餐</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00-15:00</div>
+          <div class="tl-desc">入住客栈/民宿，休整</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00-18:00</div>
+          <div class="tl-desc">🫁 <strong>轻度徒步适应</strong> · 县城周边缓坡徒步2-3h，适应海拔</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00-20:00</div>
+          <div class="tl-desc">🍖 晚餐 · 藏式火锅/牦牛肉，早睡为冲顶蓄力</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🏔️ 奥太娜雪山简介</div>
+        <div class="info-content">
+          奥太娜（海拔<strong>5210m</strong>），三奥雪山之子峰，位于阿坝州黑水县。入门级技术型雪山，适合有高海拔徒步经验者。登顶需<strong>冰爪+冰镐+安全带+头盔+高山向导</strong>。8月冰川裂缝暴露，务必谨慎。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚙 包车/自驾</span> 成都→黑水 约300km，5-6h<br>
+          包车参考价 ¥1500-2000（全程接送）
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">包车(人均) ¥400 + 住宿 ¥150 + 餐饮 ¥120 ≈ <strong>¥670/人</strong></div>
+      </div>
+      <div class="tips-box">
+        💡 <strong>Tips：</strong>海拔从成都500m升至黑水2400m，注意预防高反。避免剧烈运动、不饮酒、多喝水。可携带布洛芬+葡萄糖备用。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 4 ═══════════════ -->
+  <div class="day-card day-climb" id="day4">
+    <div class="day-header" onclick="toggleDay('day4')">
+      <div class="day-num">4</div>
+      <div class="day-info">
+        <div class="day-label">Day 4 · 攀登准备</div>
+        <div class="day-title">🧗 大本营徒步+海拔适应</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-08:00</div>
+          <div class="tl-desc">早餐 · 高热量食物储备</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00-12:00</div>
+          <div class="tl-desc">🥾 <strong>徒步至大本营</strong> · 海拔上升至约3800-4200m，约4h</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00-14:00</div>
+          <div class="tl-desc">大本营午餐+休整，欣赏雪山风光</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:00-16:00</div>
+          <div class="tl-desc">🎿 <strong>装备检查+技术培训</strong> · 冰爪穿戴、冰镐使用、结组行进</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00-18:00</div>
+          <div class="tl-desc">简短适应拉练，海拔再升200-300m后返回</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00-19:00</div>
+          <div class="tl-desc">🌙 晚餐+冲顶前简报，极早就寝（19:00-20:00入睡）</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🎒 关键装备清单</div>
+        <div class="info-content">
+          冰爪、冰镐、安全带、头盔、头灯+备用电池、雪镜、高山靴、冲锋衣裤、羽绒服、抓绒、防水手套、登山杖×2、雪套、保温壶、高热量路餐、急救包
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">向导费(均摊) ¥500-800 + 大本营住宿 ¥100-200 + 餐饮 ¥100 ≈ <strong>¥700-1100/人</strong></div>
+      </div>
+      <div class="tips-box">
+        ⚠️ <strong>Tips：</strong>海拔4000m+可能出现头痛、恶心等高原反应。如症状严重（剧烈头痛、呕吐、意识模糊），必须立即下撤！大本营条件简陋，睡袋必备。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 5 ═══════════════ -->
+  <div class="day-card day-climb day-summit" id="day5">
+    <div class="day-header" onclick="toggleDay('day5')">
+      <div class="day-num">5</div>
+      <div class="day-info">
+        <div class="day-label">Day 5 · 登顶日 🏁</div>
+        <div class="day-title">🏔️ 奥太娜冲顶 5210m！</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="highlight-badge">⚡ 极限挑战 · 全程最艰苦的一天</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">01:30-02:00</div>
+          <div class="tl-desc">🌙 起床，简单早餐（热粥/面条+能量棒）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">02:00-03:00</div>
+          <div class="tl-desc">🚶 大本营出发，穿戴齐全装备，头灯照明</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">03:00-08:00</div>
+          <div class="tl-desc">🧊 <strong>冰川/雪坡爬升</strong> · 约5h黑暗中的攀登，最艰苦段</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00-10:00</div>
+          <div class="tl-desc">🌅 日出！最后冲刺段，路况转陡</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00-12:00</div>
+          <div class="tl-desc">🏁 <strong>登顶奥太娜 5210m！</strong> · 拍照留念（15-20min，不宜久留）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00-16:00</div>
+          <div class="tl-desc">⬇️ 下撤，返回大本营→黑水县城</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00-18:00</div>
+          <div class="tl-desc">🏨 黑水休整，热水澡+大餐庆祝 🎉</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">⚠️ 登顶注意事项</div>
+        <div class="info-content">
+          关门时间：通常中午12:00为下撤关门时间，无论是否登顶必须下撤！8月冰川裂缝多，务必结组行进。天气突变概率高，向导判断优先。峰顶停留不超过20分钟。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">向导费(已含) + 登顶证书(可选) ¥100-200 + 住宿 ¥150 ≈ <strong>¥250-350/人</strong></div>
+      </div>
+      <div class="tips-box">
+        🏆 <strong>Tips：</strong>登顶成功可申请四川省登协登顶证书。下撤比登顶更危险——80%事故发生在下撤途中，务必保持专注！当晚黑水住宿，翌日返回成都。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 6 ═══════════════ -->
+  <div class="day-card" id="day6">
+    <div class="day-header" onclick="toggleDay('day6')">
+      <div class="day-num">6</div>
+      <div class="day-info">
+        <div class="day-label">Day 6 · 转场山城</div>
+        <div class="day-title">🚄 成都→重庆 · 魔幻都市</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-09:00</div>
+          <div class="tl-desc">黑水→成都（如前一晚已返成都则省去）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:00-11:00</div>
+          <div class="tl-desc">🚄 <strong>成都东→重庆北/重庆西</strong> · 高铁约1.5h</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00-12:00</div>
+          <div class="tl-desc">酒店入住 · 推荐解放碑/洪崖洞附近</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00-14:00</div>
+          <div class="tl-desc">🍜 <strong>八一好吃街</strong> · 酸辣粉、山城汤圆、烤猪蹄、一只酸奶牛</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:00-16:00</div>
+          <div class="tl-desc">🏛️ <strong>解放碑</strong> · 重庆地标打卡，步行街逛街</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00-17:30</div>
+          <div class="tl-desc">🚡 <strong>长江索道</strong> · "万里长江第一索"，空中俯瞰两江交汇</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">17:30-20:00</div>
+          <div class="tl-desc">🏮 <strong>洪崖洞</strong> · 千与千寻同款夜景，最佳机位：千厮门大桥</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🏙️ 景点介绍</div>
+        <div class="info-content">
+          <strong>洪崖洞</strong>：巴渝传统吊脚楼，11层立体魔幻建筑，傍晚亮灯后绝美。<br>
+          <strong>长江索道</strong>：全长1166m，《疯狂的石头》取景地。建议南岸→北岸方向人少。<br>
+          <strong>解放碑</strong>：重庆精神地标，全国唯一抗战胜利纪念碑。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚄 高铁</span> 成都→重庆 ¥150-180/人（1.5h）<br>
+          <span class="tag tag-transport">🚡 索道</span> 单程 ¥20，往返 ¥30
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">高铁 ¥170 + 索道 ¥30 + 住宿 ¥300 + 餐饮 ¥150 ≈ <strong>¥650/人</strong></div>
+      </div>
+      <div class="tips-box">
+        💡 <strong>Tips：</strong>洪崖洞最佳拍摄时间19:30-20:30，千厮门大桥上拍全景。索道排队可能1h+，建议错峰或微信预约。重庆8月炎热（35-40°C），注意防暑！
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 7 ═══════════════ -->
+  <div class="day-card day-cave" id="day7">
+    <div class="day-header" onclick="toggleDay('day7')">
+      <div class="day-num">7</div>
+      <div class="day-info">
+        <div class="day-label">Day 7 · 地心冒险</div>
+        <div class="day-title">🪢 天眼洞岩降 · 垂直落差的震撼</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="highlight-badge">🕳️ 肾上腺素拉满的全天探险</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">06:00-07:00</div>
+          <div class="tl-desc">早起出发，重庆→奉节（高铁约1.5h 或 自驾约4h）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">07:00-09:00</div>
+          <div class="tl-desc">🚄 重庆北→奉节站（高铁），抵达后转车至天眼洞</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:00-09:30</div>
+          <div class="tl-desc">抵达天眼洞基地，签到+签署安全协议</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:30-11:00</div>
+          <div class="tl-desc">🎓 <strong>安全培训</strong> · 教练讲解绳降技术、装备穿戴、安全事项</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00-15:00</div>
+          <div class="tl-desc">🪢 <strong>天眼洞岩降体验</strong> · 50-100m垂直落差，天然溶洞内绳降。分批次下降，每人约30-45min。洞内光影绝美！</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00-16:00</div>
+          <div class="tl-desc">洞内探秘+摄影，教练带队游览溶洞奇观</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00-17:00</div>
+          <div class="tl-desc">返回奉节县城，入住酒店</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🕳️ 天眼洞详细介绍</div>
+        <div class="info-content">
+          位于重庆奉节县，天然喀斯特溶洞天坑。洞顶有天然"天眼"开口，光束直射洞底，景象震撼。主打<strong>绳降/岩降</strong>体验，垂直落差约50-100m，全程专业教练1v1-1v3指导。全程约4-6小时，包含培训+下降+洞内探索。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚄 高铁</span> 重庆北→奉节 ¥120-150/人（约1.5h）<br>
+          <span class="tag tag-transport">🚗 当地交通</span> 奉节站→天眼洞 包车约 ¥100-150
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">岩降体验 ¥300-500 + 高铁 ¥150 + 当地交通 ¥50 + 住宿 ¥200 + 餐饮 ¥100 ≈ <strong>¥800-1000/人</strong></div>
+      </div>
+      <div class="tips-box">
+        ⚠️ <strong>Tips：</strong>天眼洞岩降必须提前至少7天预约！穿运动鞋+长裤，相机/手机务必挂绳防掉落。有心脏病、高血压、严重恐高者不建议参加。听从教练一切指令！
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 8 ═══════════════ -->
+  <div class="day-card" id="day8">
+    <div class="day-header" onclick="toggleDay('day8')">
+      <div class="day-num">8</div>
+      <div class="day-info">
+        <div class="day-label">Day 8 · 三峡之巅</div>
+        <div class="day-title">🥾 白帝城→三峡之巅 徒步登顶</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="highlight-badge">🏞️ 瞿塘峡最高点 · 长江最壮美的俯瞰</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-08:00</div>
+          <div class="tl-desc">早餐+出发，奉节县城→白帝城景区（约30min）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00-09:30</div>
+          <div class="tl-desc">🏯 <strong>白帝城游览</strong> · 刘备托孤堂、夔门观景台、10元人民币背景</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:30-14:00</div>
+          <div class="tl-desc">🥾 <strong>徒步三峡之巅</strong> · 白帝城出发，沿瞿塘峡步道约4-5h登顶（海拔1388m）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:00-15:00</div>
+          <div class="tl-desc">🏁 <strong>三峡之巅观景台</strong> · 360°俯瞰瞿塘峡+长江大拐弯，拍照！</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00-16:00</div>
+          <div class="tl-desc">🚌 摆渡车下山→返回白帝城停车场</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00-18:00</div>
+          <div class="tl-desc">返回奉节县城，晚餐 · 推荐奉节脐橙鸡/长江鱼</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🏞️ 景点介绍</div>
+        <div class="info-content">
+          <strong>三峡之巅</strong>：海拔1388m，瞿塘峡最高点。"赤甲白盐俱刺天，闾阎缭绕接山巅"。俯瞰长江在峡谷中蜿蜒如巨龙，10元人民币背景夔门尽收眼底。<br>
+          <strong>白帝城</strong>："朝辞白帝彩云间"，刘备托孤之地，三峡起点。门票约¥100，含摆渡车。
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚗 奉节→白帝城</span> 约30min，打车 ¥50-80<br>
+          <span class="tag tag-transport">🚌 摆渡车</span> 三峡之巅→下山
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">白帝城门票 ¥100 + 三峡之巅摆渡车 ¥30 + 交通 ¥80 + 住宿 ¥200 + 餐饮 ¥120 ≈ <strong>¥530/人</strong></div>
+      </div>
+      <div class="tips-box">
+        💡 <strong>Tips：</strong>徒步全程约10km，爬升约1000m，带足水和路餐（沿途补给少）。8月高温，建议早出发避开正午烈日。下山摆渡车末班时间提前确认！穿防滑徒步鞋。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 9 ═══════════════ -->
+  <div class="day-card" id="day9">
+    <div class="day-header" onclick="toggleDay('day9')">
+      <div class="day-num">9</div>
+      <div class="day-info">
+        <div class="day-label">Day 9 · 返程</div>
+        <div class="day-title">✈️ 奉节→重庆→福州 · 满载而归</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00-08:00</div>
+          <div class="tl-desc">奉节早餐，收拾行李</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00-10:00</div>
+          <div class="tl-desc">🚄 奉节→重庆北（高铁约1.5h）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00-12:00</div>
+          <div class="tl-desc">如有时间，解放碑附近补购特产（火锅底料、陈麻花、合川桃片）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00-13:00</div>
+          <div class="tl-desc">午餐 · 最后一顿重庆小面+豌杂面 🍜</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00-14:00</div>
+          <div class="tl-desc">🚇 重庆市区→江北机场（轻轨约1h）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00-18:00</div>
+          <div class="tl-desc">✈️ 重庆江北→福州长乐，回家！🏠</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">🚗 交通</div>
+        <div class="info-content">
+          <span class="tag tag-transport">🚄 高铁</span> 奉节→重庆 ¥120-150<br>
+          <span class="tag tag-transport">✈️ 机票</span> 重庆→福州 ¥800-1500
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">💰 费用预估</div>
+        <div class="info-content">高铁 ¥150 + 机票 ¥1200 + 轻轨 ¥10 + 餐饮 ¥100 ≈ <strong>¥1460/人</strong></div>
+      </div>
+      <div class="tips-box">
+        💡 <strong>Tips：</strong>预留充足的机场交通时间，重庆早高峰轻轨拥挤。特产可在超市购买（比景区便宜）。9天高强度行程结束，建议次日休息一天再上班！
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TOTAL SUMMARY ═══════════════ -->
+  <div class="section-divider"><span>💰 预算总览</span></div>
+  <div class="info-block" style="margin-bottom:20px;">
+    <div class="info-label">📊 9天人均预算估算（不含机票）</div>
+    <div class="info-content">
+      Day 1: ¥600 &nbsp;|&nbsp; Day 2: ¥292 &nbsp;|&nbsp; Day 3: ¥670 &nbsp;|&nbsp; Day 4: ¥900<br>
+      Day 5: ¥300 &nbsp;|&nbsp; Day 6: ¥650 &nbsp;|&nbsp; Day 7: ¥900 &nbsp;|&nbsp; Day 8: ¥530<br>
+      Day 9: ¥1460 &nbsp;(含返程机票)<br>
+      <strong style="font-size:15px;color:var(--accent-light);">🏷️ 总计：约 ¥5,300-6,500/人（不含往返大交通）</strong><br>
+      <strong style="font-size:15px;color:var(--accent-light);">🏷️ 含往返机票：约 ¥7,500-9,500/人</strong>
+    </div>
+  </div>
+
+  <div class="section-divider"><span>🎒 行前清单</span></div>
+  <div class="info-block" style="margin-bottom:20px;">
+    <div class="info-label">✅ 必备物品 Check List</div>
+    <div class="info-content">
+      ☑️ 身份证+学生证（门票优惠）<br>
+      ☑️ 登山装备：冰爪、冰镐、安全带、头盔、头灯、雪镜（奥太娜）<br>
+      ☑️ 冲锋衣+羽绒服+防水登山鞋<br>
+      ☑️ 登山保险单（强烈建议）<br>
+      ☑️ 防高反药物：红景天（提前1周服用）、布洛芬、葡萄糖<br>
+      ☑️ 防晒霜SPF50+、墨镜、遮阳帽<br>
+      ☑️ 雨衣/雨伞（8月必备）<br>
+      ☑️ 充电宝×2、离线地图下载<br>
+      ☑️ 三星堆预约凭证（提前3天）<br>
+      ☑️ 天眼洞预约凭证（提前7天）<br>
+      ☑️ 现金（山区可能无信号）
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#day1" onclick="openDay('day1')">
+    <span class="nav-icon">✈️</span>Day1
+  </a>
+  <a href="#day2" onclick="openDay('day2')">
+    <span class="nav-icon">🏛️</span>Day2
+  </a>
+  <a href="#day3" onclick="openDay('day3')">
+    <span class="nav-icon">🏔️</span>Day3
+  </a>
+  <a href="#day4" onclick="openDay('day4')">
+    <span class="nav-icon">🧗</span>Day4
+  </a>
+  <a href="#day5" onclick="openDay('day5')">
+    <span class="nav-icon">🏁</span>Day5
+  </a>
+  <a href="#day6" onclick="openDay('day6')">
+    <span class="nav-icon">🚄</span>Day6
+  </a>
+  <a href="#day7" onclick="openDay('day7')">
+    <span class="nav-icon">🪢</span>Day7
+  </a>
+  <a href="#day8" onclick="openDay('day8')">
+    <span class="nav-icon">🥾</span>Day8
+  </a>
+  <a href="#day9" onclick="openDay('day9')">
+    <span class="nav-icon">✈️</span>Day9
+  </a>
+</nav>
+
+<script>
+  function toggleDay(dayId) {
+    const card = document.getElementById(dayId);
+    card.classList.toggle('open');
+  }
+  function openDay(dayId) {
+    const card = document.getElementById(dayId);
+    card.classList.add('open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  // Highlight active nav
+  const navLinks = document.querySelectorAll('.bottom-nav a');
+  const cards = document.querySelectorAll('.day-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(c => observer.observe(c));
+</script>
+
+</body>
+</html>
