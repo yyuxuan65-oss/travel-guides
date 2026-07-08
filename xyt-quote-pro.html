@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熹言堂成长积分小程序 · 报价方案</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #0f1117;
+    color: #e1e4e8;
+    font-family: system-ui, -apple-system, sans-serif;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  /* Header */
+  .header-card {
+    background: linear-gradient(135deg, #1a1d2e 0%, #161b22 100%);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .header-card .icon { font-size: 40px; margin-bottom: 8px; }
+  .header-card h1 { font-size: 28px; color: #fff; margin-bottom: 6px; }
+  .header-card .sub { color: #8b8fa3; font-size: 15px; }
+
+  /* Price cards */
+  .price-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .price-card {
+    background: #161b22;
+    border: 2px solid #21262d;
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .price-card.recommended { border-color: #238636; }
+  .price-card .label {
+    font-size: 13px;
+    color: #8b8fa3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .price-card .price {
+    font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .price-card .price .yen { font-size: 22px; color: #8b8fa3; margin-right: 2px; }
+  .price-card .period { color: #8b8fa3; font-size: 14px; }
+  .price-card .badge {
+    display: inline-block;
+    background: #238636;
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+  .price-card .desc {
+    color: #8b8fa3;
+    font-size: 13px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Feature table */
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #58a6ff;
+    margin: 28px 0 12px;
+    padding-left: 4px;
+  }
+  .feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .feature-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b8fa3;
+    background: #1a1d2e;
+    border-bottom: 1px solid #21262d;
+  }
+  .feature-table th:nth-child(1) { width: 48%; }
+  .feature-table th:nth-child(2),
+  .feature-table th:nth-child(3) { width: 26%; text-align: center; }
+  .feature-table td {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #21262d;
+    vertical-align: middle;
+  }
+  .feature-table td:nth-child(2),
+  .feature-table td:nth-child(3) {
+    text-align: center;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 16px;
+  }
+  .feature-table tr:last-child td { border-bottom: none; }
+  .feature-table tr:hover { background: #1a1d2e; }
+  .check { color: #3fb950; }
+  .cross { color: #484f5e; }
+  .note { color: #d29922; font-size: 13px; }
+  .sub-feature { color: #8b8fa3; font-size: 12px; display: block; margin-top: 2px; }
+
+  /* Footer */
+  .footer-card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 28px;
+    color: #8b8fa3;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .footer-card strong { color: #e1e4e8; }
+
+  @media (max-width: 640px) {
+    .price-row { grid-template-columns: 1fr; }
+    .container { padding: 0 8px; }
+    .feature-table th, .feature-table td { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header-card">
+  <div class="icon">📱</div>
+  <h1>熹言堂 · 成长积分小程序</h1>
+  <div class="sub">报价方案 v1.0 · 两档任选 · 一目了然</div>
+</div>
+
+<!-- Price Cards -->
+<div class="price-row">
+  <div class="price-card">
+    <div class="label">标准版</div>
+    <div class="price"><span class="yen">¥</span>50,000</div>
+    <div class="period">一次性交付</div>
+    <div class="desc">核心功能全覆盖<br>飞书多维表格做后台，极速上线</div>
+  </div>
+  <div class="price-card recommended">
+    <div class="label">PRO 版</div>
+    <div class="price"><span class="yen">¥</span>80,000</div>
+    <div class="period">一次性交付</div>
+    <div class="badge">✨ 推荐</div>
+    <div class="desc">标准版全部 + 专属Web后台 + 证书徽章<br>运营自主可控，品牌独立</div>
+  </div>
+</div>
+
+<!-- ====== 功能对比 ====== -->
+
+<div class="section-title">🔐 账号与组织</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>微信登录 / 手机号绑定<span class="sub-feature">授权按需触发，不捆绑索取</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>邀请码/二维码加入班级<span class="sub-feature">防篡改、可过期、幂等</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>多组织/多班级切换<span class="sub-feature">一个用户可在不同班级拥有不同角色</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>角色权限体系<span class="sub-feature">平台超管 · 组织管理员 · 班主任 · 助教 · 学员 · 访客</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">🏠 首页 · 今日工作台</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>今日待办 + 课程提醒</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>连续打卡 / 积分摘要 / 本人名次</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>个人成长雷达图<span class="sub-feature">六模块完成度可视化</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>管理员班级风险摘要<span class="sub-feature">未激活、掉队、待审核一目了然</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">📚 学习 · 读书 · 参课 · 运动 · 助教 · 教练实践</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>学习模块<span class="sub-feature">课程包 — 章节 — 课时三级结构，视频/音频/图文/测验/作业</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>读书模块<span class="sub-feature">书目库 · 共读计划 · 每日打卡 · 笔记书评 · 分享会</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>参课模块<span class="sub-feature">课表 · 报名 · 动态二维码签到/签退 · 请假 · 补签</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>运动模块<span class="sub-feature">每日/每周目标 · 手工记录 · 达标积分 · 连续奖励</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>微信运动步数同步<span class="sub-feature">用户授权后自动读取</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>助教参与模块<span class="sub-feature">任务池 · 报名排班 · 上岗签到 · 验收评价 · 贡献积分</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>教练实践/晨练模块<span class="sub-feature">角色记录 · 时长 · 议题 · 双向确认 · 导师抽检</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">📋 统一打卡中心</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>全部任务集中展示 / 筛选</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>文字 / 图片 / 音频 / 视频 / 文件 / 勾选清单</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>提交 → 审核 → 驳回 → 补交 → 申诉<span class="sub-feature">保留历次版本，不覆盖原提交</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>积分预期 + 实际结果展示<span class="sub-feature">提交前显示可能得分，审核后显示实际分和理由</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>个人自建习惯<span class="sub-feature">不计正式积分，满足自主打卡需求</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">💬 圈子 · 班级社群</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>班级圈子 / 动态发布 / 评论 / 点赞</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>公告 / 置顶 / 精华</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>内容审核与举报<span class="sub-feature">违规内容拦截+人工复核</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>话题标签 + 优秀案例墙</td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">🏆 积分体系 · 排行榜</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>三类积分账户<span class="sub-feature">成长积分 · 贡献积分 · 荣誉指数（分开记账）</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>积分事件账本模型<span class="sub-feature">每笔流水可追溯来源、规则版本、操作人</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>后台可配置积分规则<span class="sub-feature">分值、上限、迟交折扣、版本化、生效时间</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>手工加减分 + 撤销机制<span class="sub-feature">需填原因，超阈值二次审批，生成反向流水</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>成长榜 / 贡献榜 / 模块榜 / 连续榜</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>周/月/阶段/总周期 · 多范围榜单</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>本人附近名次 + 隐私展示<span class="sub-feature">实名/昵称/匿名可选</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>榜单冻结 + 历史快照</td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>进步榜 + 团队榜</td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">🔔 消息中心</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>站内消息五分类<span class="sub-feature">待办 · 课程 · 审核 · 互动 · 系统</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>微信订阅消息推送<span class="sub-feature">任务截止/审核结果/课程提醒</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>消息深链跳转<span class="sub-feature">点击消息直达业务页面</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">👤 我的 · 成长档案</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>个人资料 / 组织班级 / 角色</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>积分流水明细 / 学习足迹</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>阶段完成度 + 毕业条件</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>徽章 / 证书<span class="sub-feature">含编号、验证页</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>个人数据导出 / 账号注销</td><td class="check">✓</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">🖥️ 管理后台</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>飞书多维表格后台<span class="sub-feature">用户/班级/任务/积分/签到/报表全部可视化操作</span></td><td class="check">✓</td><td class="note">备选</td></tr>
+  <tr><td>独立 Web 管理后台<span class="sub-feature">12个模块：工作台 · 权限 · 用户 · 课程 · 任务 · 参课 · 助教 · 圈子 · 积分 · 证书 · 报表 · 系统</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>批量导入学员 / 历史积分</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>批量审核 + 抽检</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>操作审计日志<span class="sub-feature">操作人 · 对象 · 前后值 · IP · 时间</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>班级风险名单 + 预警规则</td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>积分规则模拟器<span class="sub-feature">改权重前预览对排名影响</span></td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">📊 数据报表</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>学员个人报表<span class="sub-feature">综合分 · 完成率 · 出勤 · 实践时数</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>班级健康度 / 任务漏斗 / 学员分层</td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>助教贡献 / 审核效率报表</td><td class="cross">✗</td><td class="check">✓</td></tr>
+  <tr><td>多维筛选导出<span class="sub-feature">Excel/CSV</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+</table>
+
+<div class="section-title">🚀 交付与运维</div>
+<table class="feature-table">
+  <tr><th>功能</th><th>¥50,000</th><th>¥80,000</th></tr>
+  <tr><td>微信小程序 · 完整源码交付</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>服务端 · 数据库 · API 文档</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>部署脚本 · 上线支持</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>管理员操作手册 + 培训</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>测试报告 · 压测报告</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>真实班级试运行支持<span class="sub-feature">一个完整阶段，四类角色验收</span></td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>3 个月缺陷免费修复</td><td class="check">✓</td><td class="check">✓</td></tr>
+  <tr><td>12 个月缺陷免费修复 + 紧急响应 SLA</td><td class="cross">✗</td><td class="check">✓</td></tr>
+</table>
+
+<!-- Footer -->
+<div class="footer-card">
+  <strong>📌 两个档位都不做的（留给 V2）：</strong><br>
+  ❌ 积分商城 / 实物兑换 / 支付 · ❌ 自建直播课堂 · ❌ 复杂 IM 即时聊天 · ❌ AI 自动评分 · ❌ 企业微信/飞书/钉钉深度集成 · ❌ 公开社会化注册<br><br>
+  <strong>📌 两个档位都包含的底层能力：</strong><br>
+  ✅ HTTPS 全链路 · ✅ RBAC + 数据范围权限 · ✅ 幂等防重 · ✅ 内容安全检测 · ✅ 数据库备份 · ✅ 操作审计日志 · ✅ 隐私合规（分项授权/脱敏/注销）<br><br>
+  <strong>📌 预估交付周期：</strong>¥50,000标准版 6–8周 · ¥80,000 PRO版 10–14周（含试运行）<br>
+  <strong>📌 付款节奏建议：</strong>签约40% → 测试环境演示通过30% → 上线交付30%
+</div>
+
+</div>
+</body>
+</html>
