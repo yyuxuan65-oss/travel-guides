@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本行 · 台风应对策略</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0f1117; color:#e1e4e8; font-family:system-ui,-apple-system,sans-serif; padding:24px 16px; line-height:1.6; }
+  .container { max-width:680px; margin:0 auto; }
+
+  .header { text-align:center; margin-bottom:20px; }
+  .header .icon { font-size:36px; }
+  .header h1 { color:#fff; font-size:22px; margin:6px 0; }
+  .header .alert { color:#f85149; font-size:14px; }
+
+  .card {
+    background:#161b22; border:1px solid #21262d; border-radius:10px; padding:16px 18px; margin-bottom:14px;
+  }
+  .card.danger { border-color:#f85149; }
+  .card.warn { border-color:#d29922; }
+  .card.safe { border-color:#238636; }
+
+  .card-title { font-size:15px; font-weight:700; margin-bottom:8px; }
+  .card.danger .card-title { color:#f85149; }
+  .card.warn .card-title { color:#d29922; }
+  .card.safe .card-title { color:#3fb950; }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+  th {
+    text-align:left; padding:7px 10px; font-weight:600; color:#8b8fa3; border-bottom:1px solid #21262d;
+    font-size:12px;
+  }
+  td { padding:7px 10px; border-bottom:1px solid #21262d; vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  .red { color:#f85149; font-weight:600; }
+  .green { color:#3fb950; }
+  .yellow { color:#d29922; }
+  .muted { color:#8b8fa3; font-size:12px; }
+  .badge {
+    display:inline-block; padding:1px 7px; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .badge.r { background:#3d1f1f; color:#f85149; }
+  .badge.y { background:#2d2410; color:#d29922; }
+  .badge.g { background:#1a3a2a; color:#3fb950; }
+
+  .step { display:flex; gap:10px; margin:6px 0; align-items:flex-start; }
+  .step-num {
+    min-width:24px; height:24px; border-radius:50%; background:#1a1d2e; border:1px solid #30363d;
+    display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#58a6ff;
+  }
+  .step-text { font-size:13px; }
+
+  .divider { border-top:1px solid #21262d; margin:16px 0; }
+  .bold { color:#fff; font-weight:600; }
+  .small { font-size:12px; color:#8b8fa3; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="icon">🌀</div>
+  <h1>日本行 · 台风巴威应对策略</h1>
+  <div class="alert">7/11 台风在台北上方 · 50m/s · 15级强台风</div>
+</div>
+
+<!-- ===== 台风 ===== -->
+<div class="card danger">
+  <div class="card-title">🌀 台风巴威 · 核心数据</div>
+  <table>
+    <tr><td>7/11 11:00 位置</td><td><span class="red">25.5°N / 121.5°E</span>（台北正上方）</td></tr>
+    <tr><td>风速</td><td><span class="red">50m/s · 15级 · 强台风</span></td></tr>
+    <tr><td>中心气压</td><td>940 hPa</td></tr>
+    <tr><td>对福州影响</td><td>7/11 暴雨130mm + 46km/h强风</td></tr>
+    <tr><td>对东京影响</td><td><span class="green">0降水 · 17km/h弱风 · 完全OK</span></td></tr>
+    <tr><td>航线判断</td><td><span class="red">福州-东京必经台湾北部空域 → 7/11基本飞不了</span></td></tr>
+  </table>
+</div>
+
+<!-- ===== 资产全貌 ===== -->
+<div class="card">
+  <div class="card-title">📊 全部预订 · 一表看清</div>
+  <table>
+    <tr><th>项目</th><th>日期</th><th>金额(估)</th><th>取消政策</th><th>操作</th></tr>
+    <tr>
+      <td>✈️ 福州→东京</td><td>7/11</td><td>—</td><td>航司取消→免费改签</td>
+      <td><span class="yellow">等通知</span></td>
+    </tr>
+    <tr>
+      <td>🏠 涩谷公寓</td><td>7/11-13</td><td>~¥1,200</td><td><span class="red">不可退</span></td>
+      <td><span class="badge r">走不可抗力</span></td>
+    </tr>
+    <tr>
+      <td>🏨 名古屋日航尚格</td><td>7/13</td><td>~¥700</td><td><span class="red">不可退</span></td>
+      <td><span class="badge r">走不可抗力</span></td>
+    </tr>
+    <tr>
+      <td>🏨 京都 Hotel Bell</td><td>7/14-15</td><td>~¥600</td><td><span class="green">7/9 16:00前全退</span></td>
+      <td><span class="badge y">今晚退！</span></td>
+    </tr>
+    <tr>
+      <td>🏠 大阪 TAKETO</td><td>7/15-19</td><td>~¥1,800</td><td><span class="green">7/10 16:00前全退</span><br><span class="muted">之后部分退</span></td>
+      <td><span class="green">大概率保留</span></td>
+    </tr>
+    <tr>
+      <td>🎨 森美术馆</td><td>7/12</td><td>~¥120</td><td><span class="red">不可退</span></td>
+      <td><span class="muted">认亏</span></td>
+    </tr>
+    <tr>
+      <td>🐠 海游馆</td><td>7/15</td><td>~¥150</td><td><span class="green">可退</span></td>
+      <td><span class="green">先留着</span></td>
+    </tr>
+    <tr>
+      <td>🎢 USJ</td><td>7/16</td><td>~¥400</td><td><span class="red">不可退</span></td>
+      <td><span class="green">不受影响</span></td>
+    </tr>
+    <tr>
+      <td>🥩 Mouriya 神户和牛</td><td>7/18</td><td>—</td><td>未确认</td>
+      <td><span class="green">不受影响</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ===== 情景推演 ===== -->
+<div class="card">
+  <div class="card-title">🔮 两种情景</div>
+
+  <div style="margin-bottom:12px;">
+    <div class="bold">情景A：航班取消 → 改7/12 <span style="color:#d29922;font-weight:400;">（概率最高）</span></div>
+    <div class="small" style="margin:4px 0;">7/11航班取消 → 航司免费改7/12同班次 → 东京涩谷+名古屋走不可抗力全退</div>
+    <table>
+      <tr><td>7/11</td><td>滞留福州</td><td>损失：涩谷公寓 ¥1,200 → 走不可抗力</td></tr>
+      <tr><td>7/12</td><td>飞东京</td><td>Day1行程顺延到这天</td></tr>
+      <tr><td>7/13</td><td>东京→名古屋？</td><td><span class="red">砍掉名古屋</span>，直接东京→京都</td></tr>
+      <tr><td>7/14</td><td>京都</td><td>祇园祭宵山 ✅ 照常</td></tr>
+      <tr><td>7/15-19</td><td>大阪→神户</td><td>完全不受影响 ✅</td></tr>
+    </table>
+  </div>
+
+  <div>
+    <div class="bold">情景B：航班正常 <span style="color:#8b8fa3;font-weight:400;">（概率低，但等官方）</span></div>
+    <div class="small" style="margin:4px 0;">照常飞 → 可能延误几小时 → 行程不变，Day1晚到而已</div>
+  </div>
+</div>
+
+<!-- ===== 行动 ===== -->
+<div class="card safe">
+  <div class="card-title">⚡ 现在执行</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <span class="bold">今晚退京都 Hotel Bell</span><br>
+      <span class="small">截止 7/9 16:00 → Airbnb App 取消 → 全额退款 ~¥600</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <span class="bold">明晚决定大阪是否退</span><br>
+      <span class="small">截止 7/10 16:00，还有一整天观察台风路径。大概率保留——大阪段不受影响。</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <span class="bold">等航空公司通知</span><br>
+      <span class="small">不主动退票。航司取消→免费改7/12。拿到取消证明→走Airbnb不可抗力退东京+名古屋。</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <span class="bold">明天确认东京→京都新干线</span><br>
+      <span class="small">如果名古屋砍掉，东京直接坐新干线到京都（2h），不需要提前买票。</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="bold">💰 最坏情况算账</div>
+  <table>
+    <tr><td>京都 Hotel Bell</td><td class="green">¥0（今晚退）</td></tr>
+    <tr><td>大阪 TAKETO</td><td class="green">¥0（明晚前退/或保留正常住）</td></tr>
+    <tr><td>涩谷公寓</td><td class="red">¥1,200</td></tr>
+    <tr><td>名古屋酒店</td><td class="red">¥700</td></tr>
+    <tr><td>森美术馆</td><td class="red">¥120</td></tr>
+    <tr><td class="bold">合计最坏</td><td class="bold red">≈¥2,020</td></tr>
+  </table>
+  <div class="small" style="margin-top:6px;">如果不可抗力成功（大概率）→ 涩谷+名古屋也能退 → 实际损失 < ¥200</div>
+</div>
+
+</div>
+</body>
+</html>
