@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本行 · AB方案</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0f1117; color:#e1e4e8; font-family:system-ui,-apple-system,sans-serif; padding:20px 14px; line-height:1.6; }
+  .container { max-width:680px; margin:0 auto; }
+
+  .header { text-align:center; margin-bottom:18px; }
+  .header .icon { font-size:40px; }
+  .header h1 { color:#fff; font-size:20px; margin:4px 0; }
+  .header .sub { color:#8b8fa3; font-size:13px; }
+
+  .prob-bar {
+    background:#161b22; border:1px solid #21262d; border-radius:10px; padding:14px 16px; margin-bottom:14px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .prob-num { font-family:'SF Mono',monospace; font-size:36px; font-weight:700; color:#f85149; min-width:70px; }
+  .prob-text { font-size:13px; color:#8b8fa3; line-height:1.5; }
+  .prob-text strong { color:#e1e4e8; }
+
+  .card {
+    background:#161b22; border:1px solid #21262d; border-radius:10px; padding:16px; margin-bottom:12px;
+  }
+  .card.plan-a { border-left:3px solid #d29922; }
+  .card.plan-b { border-left:3px solid #3fb950; }
+  .card.plan-c { border-left:3px solid #58a6ff; }
+
+  .card-title { font-size:15px; font-weight:700; margin-bottom:10px; }
+  .card.plan-a .card-title { color:#d29922; }
+  .card.plan-b .card-title { color:#3fb950; }
+  .card.plan-c .card-title { color:#58a6ff; }
+
+  .timeline { position:relative; padding-left:20px; }
+  .tl-item { position:relative; padding:4px 0 10px 16px; font-size:13px; }
+  .tl-item::before {
+    content:''; position:absolute; left:0; top:6px; width:8px; height:8px; border-radius:50%;
+    border:2px solid #30363d; background:#0f1117;
+  }
+  .tl-item.keep::before { border-color:#3fb950; background:#3fb950; }
+  .tl-item.lose::before { border-color:#f85149; background:#f85149; }
+  .tl-item.move::before { border-color:#d29922; background:#d29922; }
+
+  .tl-date { color:#58a6ff; font-weight:600; font-size:12px; }
+  .tl-desc { color:#e1e4e8; }
+  .tl-sub { color:#8b8fa3; font-size:11px; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; margin:8px 0; }
+  th { text-align:left; padding:6px 8px; font-weight:600; color:#8b8fa3; border-bottom:1px solid #21262d; font-size:11px; }
+  td { padding:6px 8px; border-bottom:1px solid #21262d; }
+  tr:last-child td { border-bottom:none; }
+
+  .action-list { list-style:none; }
+  .action-list li { padding:6px 0; font-size:13px; border-bottom:1px solid #1a1d2e; display:flex; align-items:flex-start; gap:8px; }
+  .action-list li:last-child { border-bottom:none; }
+  .action-day {
+    min-width:52px; font-weight:700; font-size:12px; color:#58a6ff;
+  }
+  .red { color:#f85149; }
+  .green { color:#3fb950; }
+  .yellow { color:#d29922; }
+  .muted { color:#8b8fa3; font-size:11px; }
+
+  .compare-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:10px 0;
+  }
+  .cg-cell {
+    background:#1a1d2e; border-radius:6px; padding:8px; text-align:center; font-size:11px;
+  }
+  .cg-cell .label { color:#8b8fa3; margin-bottom:2px; }
+  .cg-cell .val { font-weight:700; font-size:14px; }
+  .cg-cell .val.danger { color:#f85149; }
+  .cg-cell .val.ok { color:#3fb950; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="icon">🌀</div>
+  <h1>日本行 · 台风巴威 AB方案</h1>
+  <div class="sub">2026.07.08 更新 · 实时数据</div>
+</div>
+
+<!-- 概率 -->
+<div class="prob-bar">
+  <div class="prob-num">~15%</div>
+  <div class="prob-text">
+    <strong>7/11 能飞的概率</strong><br>
+    台北7/11：阵风115km/h · 暴雨126mm · 台风核心在航线上<br>
+    福州7/11：暴雨130mm · 风速46km/h · 临界状态<br>
+    <span class="muted">7/12 能飞概率 ~90%（福州风速骤降、降水大幅减少）</span>
+  </div>
+</div>
+
+<!-- ===== 三情景对比 ===== -->
+<div class="compare-grid">
+  <div class="cg-cell">
+    <div class="label">A方案</div>
+    <div class="val ok">~15%</div>
+    <div class="muted">7/11正常飞</div>
+  </div>
+  <div class="cg-cell">
+    <div class="label">B方案 ⭐主推</div>
+    <div class="val ok">~80%</div>
+    <div class="muted">7/12飞·砍名古屋</div>
+  </div>
+  <div class="cg-cell">
+    <div class="label">C方案·备胎</div>
+    <div class="val danger">~5%</div>
+    <div class="muted">7/13飞·缩京都</div>
+  </div>
+</div>
+
+<!-- ===== 方案A ===== -->
+<div class="card plan-a">
+  <div class="card-title">🟡 A方案：7/11 正常飞（概率 15%）</div>
+  <div class="timeline">
+    <div class="tl-item keep">
+      <div class="tl-date">7/11 周五</div>
+      <div class="tl-desc">福州→成田 13:55落地 → 涩谷</div>
+      <div class="tl-sub">可能延误几小时，但不影响行程</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/12 周六</div>
+      <div class="tl-desc">东京全日：森美术馆→秋叶原→原宿</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/13 周日</div>
+      <div class="tl-desc">东京→新干线→名古屋：名古屋城·蓬莱轩·荣商圈</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/14 周一</div>
+      <div class="tl-desc">名古屋→京都：伏见稻荷·清水寺·祇园祭宵山 🎆</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/15-18</div>
+      <div class="tl-desc">大阪·海游馆·USJ·京都巡游·神户和牛·花火 🎆</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/19 周六</div>
+      <div class="tl-desc">大阪返程 → 福州</div>
+    </div>
+  </div>
+  <div class="muted" style="margin-top:8px;">损失：¥0 · 行程完整</div>
+</div>
+
+<!-- ===== 方案B ===== -->
+<div class="card plan-b">
+  <div class="card-title">🟢 B方案：7/12 飞 · 砍名古屋（概率 80%）⭐</div>
+  <div class="timeline">
+    <div class="tl-item lose">
+      <div class="tl-date">7/11 周五</div>
+      <div class="tl-desc">滞留福州 · 航班取消</div>
+      <div class="tl-sub">涩谷公寓7/11这晚走不可抗力退</div>
+    </div>
+    <div class="tl-item move">
+      <div class="tl-date">7/12 周六</div>
+      <div class="tl-desc">福州→成田 13:55 → 涩谷</div>
+      <div class="tl-sub">相扑表演看不到了（7/11晚）</div>
+    </div>
+    <div class="tl-item lose">
+      <div class="tl-date">7/13 周日</div>
+      <div class="tl-desc"><span class="red">砍名古屋</span> · 东京→新干线→京都（2h）</div>
+      <div class="tl-sub">损失：名古屋城·蓬莱轩·矢场炸猪排·名古屋酒店¥700</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/14 周一</div>
+      <div class="tl-desc">京都全日：伏见稻荷·清水寺·祇园祭宵山 🎆</div>
+      <div class="tl-sub">不受影响 ✅</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/15-18</div>
+      <div class="tl-desc">大阪·海游馆·USJ·京都巡游·神户和牛·花火</div>
+      <div class="tl-sub">完全不受影响 ✅✅✅</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/19 周六</div>
+      <div class="tl-desc">大阪返程 → 福州</div>
+    </div>
+  </div>
+  <div class="muted" style="margin-top:8px;">损失：涩谷¥1,200 + 名古屋¥700 + 森美术馆¥120 ≈ <span class="red">¥2,020</span>（走不可抗力可降至¥120）</div>
+</div>
+
+<!-- ===== 方案C ===== -->
+<div class="card plan-c">
+  <div class="card-title">🔵 C方案：7/13 飞 · 缩京都（概率 5%）</div>
+  <div class="timeline">
+    <div class="tl-item lose">
+      <div class="tl-date">7/11-12</div>
+      <div class="tl-desc">滞留福州两天</div>
+    </div>
+    <div class="tl-item move">
+      <div class="tl-date">7/13 周日</div>
+      <div class="tl-desc">福州→东京 → 不出机场 → 直接新干线到京都</div>
+      <div class="tl-sub">损失东京全部行程+名古屋</div>
+    </div>
+    <div class="tl-item keep">
+      <div class="tl-date">7/14-19</div>
+      <div class="tl-desc">京都+大阪照常</div>
+    </div>
+  </div>
+  <div class="muted" style="margin-top:8px;">损失：涩谷¥1,200 + 名古屋¥700 + 森美术馆¥120 + 东京行程全无</div>
+</div>
+
+<!-- ===== 酒店策略 ===== -->
+<div class="card">
+  <div class="card-title">🏨 酒店应对策略</div>
+  <table>
+    <tr><th>酒店</th><th>日期</th><th>B方案影响</th><th>操作</th></tr>
+    <tr>
+      <td>涩谷公寓</td><td>7/11-13</td>
+      <td>7/11不住 · 7/12-13照住</td>
+      <td>等航司取消→走不可抗力→跟房东协商退7/11这晚<br><span class="muted">或保留整单，7/12-13照用</span></td>
+    </tr>
+    <tr>
+      <td>名古屋日航</td><td>7/13</td>
+      <td><span class="red">整单取消</span></td>
+      <td>走不可抗力全退</td>
+    </tr>
+    <tr>
+      <td>京都 Hotel Bell</td><td>7/14-15</td>
+      <td><span class="green">不受影响</span></td>
+      <td><span class="green">不动</span></td>
+    </tr>
+    <tr>
+      <td>大阪 TAKETO</td><td>7/15-19</td>
+      <td><span class="green">不受影响</span></td>
+      <td><span class="green">不动</span></td>
+    </tr>
+    <tr>
+      <td>名古屋蓬莱轩</td><td>7/13</td>
+      <td><span class="red">取消</span></td>
+      <td>如有预约→取消</td>
+    </tr>
+    <tr>
+      <td>Mouriya 神户和牛</td><td>7/18</td>
+      <td><span class="green">不受影响</span></td>
+      <td><span class="green">保留</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ===== 每日行动 ===== -->
+<div class="card">
+  <div class="card-title">📋 每日行动清单</div>
+  <ul class="action-list">
+    <li>
+      <div class="action-day">今天 7/8</div>
+      <div>
+        <div>✅ 什么也别退</div>
+        <div class="muted">等航空公司官方通知。自己退要手续费。</div>
+      </div>
+    </li>
+    <li>
+      <div class="action-day">明天 7/9</div>
+      <div>
+        <div>📞 如果还没收到航司通知→主动打客服问改签政策</div>
+        <div>🗺️ 查一下 7/13 东京→京都新干线时刻表（备用）</div>
+        <div class="muted">不用买票，新干线随到随走。确定B方案后取消名古屋酒店+蓬莱轩。</div>
+      </div>
+    </li>
+    <li>
+      <div class="action-day">后天 7/10</div>
+      <div>
+        <div>✈️ 航司大概率这天发取消通知</div>
+        <div>📋 收到取消→立刻改签7/12同班次 + 拿取消证明</div>
+        <div>🏨 走Airbnb不可抗力退涩谷7/11+名古屋酒店</div>
+        <div class="muted">台风路径7/10基本定局，这天做所有确认。</div>
+      </div>
+    </li>
+    <li>
+      <div class="action-day">7/11</div>
+      <div>
+        <div>A：正常飞 → 去机场</div>
+        <div>B：航班取消 → 在家休息 · 收拾行李 · 确认改签7/12 · 取消名古屋蓬莱轩</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="card" style="background:#1a3a2a;border-color:#238636;">
+  <div class="card-title" style="color:#3fb950;">💡 心态</div>
+  你真正会错过的只有：名古屋城、蓬莱轩鳗鱼饭、矢场炸猪排。<br>
+  京都祇园祭（一年一次）✅ 大阪段全部 ✅ 神户和牛 ✅ USJ ✅ 花火 ✅<br><br>
+  <span style="color:#8b8fa3;font-size:12px;">一个8天行程里只丢了一个过路城市——不亏。</span>
+</div>
+
+</div>
+</body>
+</html>
