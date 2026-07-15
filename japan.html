@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>日本四城 · 夏 | 老K的旅行日记</title>
+<style>
+  :root {
+    --bg: #0a0e27;
+    --bg-card: #111640;
+    --bg-card-alt: #161b40;
+    --accent: #3b7cff;
+    --accent-glow: rgba(59,124,255,0.2);
+    --red: #ff4757;
+    --gold: #ffa502;
+    --green: #2ed573;
+    --pink: #ff6b81;
+    --text: #e8e8f0;
+    --text2: #8899aa;
+    --text3: #5a6580;
+    --border: rgba(255,255,255,0.07);
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh; padding-bottom: 60px;
+  }
+  .container { width:100%; max-width:480px; padding:0 16px; }
+
+  /* Hero */
+  .hero {
+    text-align: center; padding: 40px 0 24px;
+    background: linear-gradient(180deg, rgba(59,124,255,0.08) 0%, transparent 100%);
+    border-radius: 0 0 32px 32px; margin: 0 -16px 20px;
+  }
+  .hero-emoji { font-size: 56px; display: block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #3b7cff, #a78bfa, #ff6b81); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .sub { color: var(--text2); font-size: 14px; margin-top: 4px; }
+  .hero .date { color: var(--text3); font-size: 12px; margin-top: 6px; }
+
+  /* Stats */
+  .stats { display: flex; gap: 10px; margin-bottom: 24px; }
+  .stat-card {
+    flex:1; background: var(--bg-card); border-radius: var(--radius-sm);
+    padding: 14px 10px; text-align: center; border: 1px solid var(--border);
+  }
+  .stat-card .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .stat-card .label { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  /* City Card */
+  .city { background: var(--bg-card); border-radius: var(--radius); margin-bottom: 16px; border: 1px solid var(--border); overflow: hidden; }
+  .city-header {
+    padding: 16px 18px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border); cursor: pointer;
+    background: linear-gradient(135deg, rgba(59,124,255,0.06), transparent);
+  }
+  .city-header .icon { font-size: 32px; }
+  .city-header .info { flex:1; }
+  .city-header .name { font-size: 18px; font-weight: 700; }
+  .city-header .dates { font-size: 12px; color: var(--text2); }
+  .city-body { padding: 14px 18px; }
+  .city-body.collapsed { display: none; }
+
+  /* Moment */
+  .moment { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .moment:last-child { border-bottom: none; }
+  .moment .time { font-size: 11px; color: var(--accent); min-width: 44px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .moment .content { flex:1; }
+  .moment .title { font-size: 14px; font-weight: 600; }
+  .moment .desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .moment .tag {
+    display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 20px;
+    margin-top: 4px; font-weight: 600;
+  }
+  .tag-food { background: rgba(255,167,2,0.15); color: var(--gold); }
+  .tag-spot { background: rgba(59,124,255,0.15); color: var(--accent); }
+  .tag-event { background: rgba(255,107,129,0.15); color: var(--pink); }
+  .tag-transit { background: rgba(46,213,115,0.12); color: var(--green); }
+
+  /* Food */
+  .food-card {
+    background: var(--bg-card-alt); border-radius: var(--radius-sm);
+    padding: 14px; margin-top: 12px; border: 1px solid var(--border);
+  }
+  .food-card .fname { font-size: 15px; font-weight: 700; }
+  .food-card .fdetail { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  /* Section */
+  .section-title {
+    font-size: 16px; font-weight: 700; color: var(--text2);
+    margin: 24px 0 12px; padding-left: 12px; border-left: 3px solid var(--accent);
+  }
+
+  /* Photo placeholder */
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .photo-placeholder {
+    aspect-ratio: 4/3; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; border: 1px solid var(--border);
+  }
+
+  /* Timeline dot */
+  .tl { position: relative; padding-left: 20px; }
+  .tl::before {
+    content: ''; position: absolute; left: 5px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl .moment { position: relative; }
+  .tl .moment::before {
+    content: ''; position: absolute; left: -17px; top: 14px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg-card);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 30px 0 20px; color: var(--text3); font-size: 12px;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* Highlight */
+  .hl { color: var(--gold); font-weight: 600; }
+
+  /* Quote */
+  .quote {
+    background: linear-gradient(135deg, rgba(59,124,255,0.08), rgba(167,139,250,0.06));
+    border-radius: var(--radius-sm); padding: 16px 18px; margin: 16px 0;
+    border-left: 3px solid var(--accent); font-style: italic; color: var(--text2); font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Hero -->
+<div class="hero">
+  <span class="hero-emoji">🗾</span>
+  <h1>日本四城 · 夏</h1>
+  <p class="sub">东京 · 名古屋 · 京都 · 大阪</p>
+  <p class="date">2026.07.11 — 07.19</p>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card"><div class="num">5</div><div class="label">天已完成</div></div>
+  <div class="stat-card"><div class="num">4</div><div class="label">城市</div></div>
+  <div class="stat-card"><div class="num">🗻</div><div class="label">富士山✓</div></div>
+  <div class="stat-card"><div class="num">🎆</div><div class="label">祇園祭</div></div>
+</div>
+
+<!-- Tokyo -->
+<div class="city">
+  <div class="city-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="icon">🗼</span>
+    <div class="info">
+      <div class="name">东京 · Tokyo</div>
+      <div class="dates">7/11 抵达 — 7/13 出发</div>
+    </div>
+  </div>
+  <div class="city-body tl">
+    <div class="moment">
+      <span class="time">13:00</span>
+      <div class="content">
+        <div class="title">成田空港着陆 ✈️</div>
+        <div class="desc">MF809 厦门→成田，Skyliner 穿东京郊野进都心</div>
+        <span class="tag tag-transit">Skyliner ¥87</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">夜</span>
+      <div class="content">
+        <div class="title">新宿 · 霓虹初体验</div>
+        <div class="desc">全世界最繁忙的车站，出站就是满眼霓虹招牌。東京の夜が始まる。</div>
+        <span class="tag tag-spot">新宿</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">翌日</span>
+      <div class="content">
+        <div class="title">渋谷スクランブル交差点</div>
+        <div class="desc">世界最忙十字路口，绿灯亮起3000人同时过街。星巴克二楼窗口视角最佳。</div>
+        <span class="tag tag-spot">渋谷</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Nagoya -->
+<div class="city">
+  <div class="city-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="icon">🏯</span>
+    <div class="info">
+      <div class="name">名古屋 · Nagoya</div>
+      <div class="dates">7/13 傍晚抵达，次日清晨出发</div>
+    </div>
+  </div>
+  <div class="city-body tl">
+    <div class="moment">
+      <span class="time">16:52</span>
+      <div class="content">
+        <div class="title">🗻 富士山 · 新干线右侧E席</div>
+        <div class="desc">东京出发40分钟后，富士山从右侧车窗出现。7月山顶残雪已消，但山体轮廓依然震撼。3分钟，准备好相机。</div>
+        <span class="tag tag-event">新干线 Nozomi</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">18:40</span>
+      <div class="content">
+        <div class="title">🍱 あつた蓬莱軒 · 鳗鱼饭三吃</div>
+        <div class="desc">明治6年创业。ひつまぶし——一吃原味、二吃加药味、三吃茶泡饭。暑期排队40分钟，值。</div>
+        <span class="tag tag-food">蓬莱軒 本店</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">夜</span>
+      <div class="content">
+        <div class="title">Oasis 21 · 名古屋电视塔</div>
+        <div class="desc">玻璃水池映出电视塔倒影，名古屋最美的夜景机位。</div>
+        <span class="tag tag-spot">栄 · Oasis 21</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">07:00</span>
+      <div class="content">
+        <div class="title">⛩️ 熱田神宮 · 清晨独享</div>
+        <div class="desc">日本三大神宫之一，草薙剑供奉地。清晨无人，古树林立，比京都任何一个神社都幽静。</div>
+        <span class="tag tag-spot">熱田神宮</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Kyoto -->
+<div class="city">
+  <div class="city-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="icon">⛩️</span>
+    <div class="info">
+      <div class="name">京都 · Kyoto</div>
+      <div class="dates">7/14 全天</div>
+    </div>
+  </div>
+  <div class="city-body tl">
+    <div class="moment">
+      <span class="time">10:00</span>
+      <div class="content">
+        <div class="title">伏見稲荷 · 千本鳥居</div>
+        <div class="desc">上午光线最好。几千座朱红鸟居沿山排开，晨光穿透时地面洒满红色光影。往上走一段就没人了。</div>
+        <span class="tag tag-spot">伏見稲荷大社</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">午後</span>
+      <div class="content">
+        <div class="title">👘 清水寺 · 二年坂三年坂</div>
+        <div class="desc">和服体验，沿石板坡道一路走到清水寺。京都最经典的画面都在这一段。</div>
+        <span class="tag tag-spot">清水寺</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">18:00</span>
+      <div class="content">
+        <div class="title">🎆 祇園祭 · 宵山初日！</div>
+        <div class="desc">一年只此一晚。四条通步行者天国，山鉾灯笼全亮，駒形提灯在鉾上排成扇形，祇園囃子的コンコンチキチン响彻夜空。撞上了京都最大祭典的第一天——运气拉满。</div>
+        <span class="tag tag-event">祇園祭 前祭宵山</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">翌朝</span>
+      <div class="content">
+        <div class="title">🐟 錦市場 · 鱼生早餐</div>
+        <div class="desc">虽然现在游客多，但大清早边走边吃海鲜串——まぐろ刺し串、焼き牡蠣、うに——还是很过瘾。</div>
+        <span class="tag tag-food">錦市場</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Osaka (in progress) -->
+<div class="city">
+  <div class="city-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="icon">🐙</span>
+    <div class="info">
+      <div class="name">大阪 · Osaka</div>
+      <div class="dates">7/15 — 7/18 · 进行中</div>
+    </div>
+  </div>
+  <div class="city-body tl">
+    <div class="moment">
+      <span class="time">12:00</span>
+      <div class="content">
+        <div class="title">JR新快速 · 京都→大阪 29分钟</div>
+        <div class="desc">丢下行李，大阪的节奏明显快了。空气里开始有たこ焼き的味道。</div>
+        <span class="tag tag-transit">JR新快速</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">昼</span>
+      <div class="content">
+        <div class="title">🥘 お好み焼き · 美舟</div>
+        <div class="desc">大阪站前ビルB2，1948年老铺。铁板前围坐，老师傅现场烤，周边全是穿西装的大叔。这才是大阪人的午餐。</div>
+        <span class="tag tag-food">美舟（梅田）</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">15:00</span>
+      <div class="content">
+        <div class="title">🐋 海遊館 · ジンベエザメ</div>
+        <div class="desc">世界上最大的室内水族馆之一，巨型鲸鲨在8600吨水槽里巡游。中央水槽从8F贯穿到4F，站在玻璃前人会安静下来。</div>
+        <span class="tag tag-spot">海遊館</span>
+      </div>
+    </div>
+    <div class="moment">
+      <span class="time">18:00</span>
+      <div class="content">
+        <div class="title">🍺 天満 · 立飲み屋街</div>
+        <div class="desc">大阪最local的喝酒区。站着喝、隨意走、想换就换。一瓶啤酒、几串焼き鳥、跟旁边大叔点头干杯。ここが大阪や。</div>
+        <span class="tag tag-event">天満 立飲み</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Food highlights -->
+<div class="section-title">🍽️ 食のハイライト</div>
+
+<div class="food-card">
+  <div class="fname">🥇 ひつまぶし · 蓬莱軒 本店</div>
+  <div class="fdetail">名古屋 · 明治6年（1873）创业 · 鳗鱼炭火慢烤，三吃是仪式</div>
+</div>
+<div class="food-card">
+  <div class="fname">🥈 お好み焼き · 美舟</div>
+  <div class="fdetail">大阪 · 1948年老铺 · 铁板前围坐，豚玉+啤酒=大阪人の昼</div>
+</div>
+<div class="food-card">
+  <div class="fname">🥉 錦市場 · 海鲜串</div>
+  <div class="fdetail">京都 · まぐろ刺し串 / 焼き牡蠣 / うに · 边走边吃的快乐</div>
+</div>
+
+<!-- Quote -->
+<div class="quote">
+  「72小时串了三城。新干线窗外是富士山，舌尖是鳗鱼饭，脚下是千本鸟居，耳边是祇園囃子。嘴巴和眼睛都没停过。下一站，大阪。」
+</div>
+
+<div class="footer">
+  老K · 2026.07 · <a href="index.html">← 回到首页</a>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.city-body').forEach(b => b.classList.remove('collapsed'));
+</script>
+</body>
+</html>
