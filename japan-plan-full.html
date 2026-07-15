@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>🗾 老K日本 · 9天8晚</title>
+<style>
+:root{
+--bg:#0a0e27;--card:#111640;--input:#1a1f4e;--text:#ffffff;--dim:#8899aa;
+--blue:#3b7cff;--red:#ff4757;--green:#2ed573;--divider:#1e2456;--border:#222855;
+--r:16px;--r2:20px;--rp:24px
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);padding-bottom:120px;line-height:1.6;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;overflow-x:hidden;max-width:480px;margin:0 auto}
+
+/* HEADER */
+.header{background:linear-gradient(180deg,#111640,#0a0e27);padding:28px 20px 20px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-60px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(59,124,255,.15),transparent 70%)}
+.header::after{content:'';position:absolute;bottom:-40px;left:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,71,87,.1),transparent 70%)}
+.header h1{font-size:26px;font-weight:800;letter-spacing:1px;position:relative;z-index:1}
+.header .sub{color:var(--dim);font-size:13px;margin:6px 0 12px;position:relative;z-index:1}
+.header .route{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
+.route-pill{background:var(--card);border:1px solid var(--blue);color:var(--blue);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700}
+.route-arrow{color:var(--dim);font-size:10px}
+
+/* DATE NAV */
+.date-nav-wrap{padding:12px 0 6px;position:sticky;top:0;z-index:100;background:rgba(10,14,39,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.date-nav{display:flex;gap:8px;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.date-nav::-webkit-scrollbar{display:none}
+.date-pill{flex-shrink:0;padding:8px 14px;border-radius:22px;font-size:11px;font-weight:600;text-align:center;background:var(--card);color:var(--dim);border:1px solid var(--border);cursor:pointer;transition:.2s;white-space:nowrap;min-width:56px}
+.date-pill .dd{font-size:14px;font-weight:800;display:block;line-height:1.2}
+.date-pill .dl{font-size:9px;color:var(--dim);display:block}
+.date-pill.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 16px rgba(59,124,255,.3)}
+.date-pill.active .dl{color:rgba(255,255,255,.7)}
+.date-pill.return{background:var(--card);border:1px dashed var(--border)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 16px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 10px;text-align:center}
+.stat-card .si{font-size:22px;margin-bottom:4px}
+.stat-card .sn{font-size:18px;font-weight:800;color:var(--blue)}
+.stat-card .sl{font-size:10px;color:var(--dim);margin-top:2px}
+
+/* REMINDER SECTION */
+.rem-section{margin:0 16px 12px}
+.rem-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;cursor:pointer}
+.rem-header h3{font-size:14px;font-weight:700;color:var(--red);flex:1}
+.rem-header .arrow{color:var(--red);font-size:12px;transition:.3s}
+.rem-body{overflow:hidden;max-height:0;transition:max-height .4s}
+.rem-body.open{max-height:1200px}
+.rem-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:6px}
+.rem-date{min-width:52px;font-size:11px;font-weight:700;color:var(--dim);text-align:center}
+.rem-content{flex:1;font-size:12px;line-height:1.5}
+.rem-tag{padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600;white-space:nowrap}
+.rem-tag.urgent{background:rgba(255,71,87,.15);color:var(--red)}
+.rem-tag.done{background:rgba(46,213,115,.15);color:var(--green)}
+.rem-tag.normal{background:rgba(136,153,170,.15);color:var(--dim)}
+
+/* SECTION TITLES */
+.sec-title{font-size:15px;font-weight:700;padding:8px 16px 6px;display:flex;align-items:center;gap:8px}
+
+/* DAY CARD */
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);margin:0 16px 12px;overflow:hidden}
+.day-summary{display:flex;align-items:stretch;min-height:100px}
+.day-time{width:70px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(59,124,255,.08);border-right:1px solid var(--divider);padding:12px 8px}
+.day-num{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.day-num.r{background:var(--red)}
+.day-num.g{background:var(--green)}
+.day-num.p{background:#a78bfa}
+.day-num.y{background:#fbbf24;color:#1a1a2e}
+.day-num.o{background:#f97316}
+.day-date{font-size:10px;color:var(--dim);text-align:center;line-height:1.3}
+.day-info{flex:1;padding:14px}
+.day-info h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.day-info .day-sub{font-size:11px;color:var(--dim);line-height:1.5}
+.day-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.day-tag{padding:2px 8px;border-radius:10px;font-size:9px;background:rgba(59,124,255,.1);color:var(--blue);border:1px solid rgba(59,124,255,.2)}
+.day-tag.must{background:rgba(255,71,87,.1);color:var(--red);border-color:rgba(255,71,87,.2)}
+.day-expand{padding:0 14px 14px;text-align:center}
+.day-expand-btn{display:inline-flex;align-items:center;gap:4px;padding:8px 24px;background:var(--blue);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
+.day-expand-btn:active{opacity:.8}
+.day-expand-btn .arr{transition:.3s;display:inline-block}
+.day-expand-btn.open .arr{transform:rotate(180deg)}
+.day-detail{max-height:0;overflow:hidden;transition:max-height .5s}
+.day-detail.open{max-height:8000px}
+.day-detail-inner{padding:0 14px 14px}
+
+/* CHECKLIST */
+.checklist-wrap{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:8px;padding-top:6px;border-top:1px solid var(--divider)}
+.checklist-wrap .cl-label{font-size:9px;color:var(--dim);white-space:nowrap}
+.checklist-tag{font-size:8px;padding:2px 7px;border-radius:8px;background:rgba(255,71,87,.12);color:#ff6b81;border:1px solid rgba(255,71,87,.2);white-space:nowrap}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:20px;margin:8px 0}
+.timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:var(--divider)}
+.tl-item{position:relative;padding:4px 0 4px 12px;font-size:12px;line-height:1.6}
+.tl-item::before{content:'';position:absolute;left:-14px;top:10px;width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.tl-time{color:var(--blue);font-weight:700;font-size:11px;margin-right:6px}
+
+/* SPOT CARD */
+.spot-card{background:var(--input);border:1px solid var(--border);border-radius:12px;padding:10px;margin:10px 0;overflow:hidden}
+.spot-card h5{font-size:13px;font-weight:700;margin:0 0 2px}
+.spot-card .spot-img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;display:block;background:var(--border)}
+.spot-card .spot-see{font-size:10px;color:var(--dim);line-height:1.7}
+.spot-card .spot-tip{background:rgba(59,124,255,.1);padding:6px 8px;border-radius:8px;font-size:10px;color:var(--blue);margin:4px 0}
+.spot-card .spot-selfie{background:rgba(255,71,87,.08);padding:6px 8px;border-radius:8px;font-size:10px;color:#ff6b81;margin:4px 0}
+
+/* BOOKING CARD */
+.bcard{background:var(--input);border:1px solid var(--border);border-radius:12px;padding:12px;margin:8px 0}
+.bcard .bh{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.bcard ol{margin:0;padding-left:20px;font-size:11px;color:var(--dim);line-height:1.8}
+.bcard ol li{padding:2px 0}
+.bcard .bl{display:inline-flex;align-items:center;gap:4px;margin-top:6px;color:var(--blue);font-size:11px;text-decoration:none}
+
+/* TIPS */
+.tip{background:rgba(59,124,255,.06);border-left:3px solid var(--blue);padding:8px 12px;margin:8px 0;font-size:11px;color:var(--blue);border-radius:0 8px 8px 0;line-height:1.6}
+.warn{background:rgba(255,71,87,.06);border-left:3px solid var(--red);padding:8px 12px;margin:8px 0;font-size:11px;color:var(--red);border-radius:0 8px 8px 0;line-height:1.6}
+.alert{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.2);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:11px;color:#ff8888;line-height:1.6}
+
+/* FOOD CARD */
+.food-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);margin:0 16px 10px;overflow:hidden}
+.food-header{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
+.food-emoji{font-size:28px;width:44px;height:44px;background:var(--input);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.food-info{flex:1}
+.food-info h4{font-size:14px;font-weight:700;margin-bottom:2px}
+.food-info .food-sub{font-size:11px;color:var(--dim)}
+.food-status{padding:4px 10px;border-radius:12px;font-size:10px;font-weight:600;white-space:nowrap}
+.food-status.booked{background:rgba(46,213,115,.15);color:var(--green)}
+.food-status.pending{background:rgba(255,71,87,.15);color:var(--red)}
+.food-status.normal{background:rgba(136,153,170,.15);color:var(--dim)}
+.food-body{max-height:0;overflow:hidden;transition:max-height .4s}
+.food-body.open{max-height:2000px}
+.food-body-inner{padding:0 14px 14px 70px}
+.food-body-inner ol{margin:0;padding-left:18px;font-size:11px;color:var(--dim);line-height:1.8}
+.food-body-inner .tip{margin:8px 0}
+
+/* INTERACTIVE RESERVATION */
+.food-status{cursor:pointer;user-select:none;transition:.2s;position:relative}
+.food-status:hover{opacity:.85;transform:scale(1.03)}
+.food-status:active{transform:scale(.97)}
+.food-status .countdown{display:block;font-size:8px;font-weight:400;margin-top:1px;opacity:.7}
+.food-status.reserved{background:rgba(46,213,115,.15)!important;color:var(--green)!important}
+.food-status.needed{background:rgba(255,71,87,.15)!important;color:var(--red)!important}
+.food-status.expired{background:rgba(136,153,170,.12)!important;color:var(--dim)!important}
+.food-status .tap-hint{font-size:7px;opacity:0;transition:opacity .3s;display:block}
+.food-status:hover .tap-hint{opacity:.6}
+
+/* TRANSPORT CARD */
+.trans-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);margin:0 16px 10px;padding:14px}
+.trans-card h4{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.trans-card .irow{display:flex;justify-content:space-between;padding:6px 0;font-size:11px;border-bottom:1px solid var(--divider)}
+.trans-card .irow:last-child{border:none}
+.trans-card .il{color:var(--dim)}
+.trans-card .iv{font-weight:600;text-align:right;max-width:65%}
+
+/* EMERGENCY CARD */
+.em-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);margin:0 16px 10px;padding:14px}
+.em-card h4{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.em-card .irow{display:flex;justify-content:space-between;padding:6px 0;font-size:11px;border-bottom:1px solid var(--divider)}
+.em-card .irow:last-child{border:none}
+.em-card .il{color:var(--dim)}
+.em-card .iv{font-weight:600;text-align:right;max-width:65%}
+.em-card .big{font-size:20px;font-weight:800;color:var(--red)}
+.em-tips{font-size:11px;color:var(--dim);line-height:1.8}
+
+/* OVERVIEW CARDS */
+.ov-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);margin:0 16px 10px;padding:14px}
+.ov-card h4{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ov-card .irow{display:flex;justify-content:space-between;padding:6px 0;font-size:11px;border-bottom:1px solid var(--divider)}
+.ov-card .irow:last-child{border:none}
+.ov-card .il{color:var(--dim)}
+.ov-card .iv{font-weight:600;text-align:right;max-width:65%}
+
+/* TAB PAGES */
+.page{display:none;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* BOTTOM NAV - WHITE */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(17,22,64,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.bnav a{flex:1;text-align:center;text-decoration:none;color:var(--dim);font-size:10px;font-weight:500;padding:4px 2px;transition:.2s}
+.bnav a.active{color:var(--blue);font-weight:700}
+.bnav a .bi{display:block;font-size:18px;margin-bottom:2px}
+
+/* HIGHLIGHT */
+.hl{background:rgba(46,213,115,.1);border:1px solid rgba(46,213,115,.2);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:11px;color:var(--green);line-height:1.6}
+
+/* SPOT SECTION TITLE */
+.spot-section-title{font-size:12px;font-weight:700;color:var(--blue);margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<h1>🗾 老K日本之旅</h1>
+<div class="sub">2026.7.11 → 7.19 · 9天8晚</div>
+<div class="route">
+<span class="route-pill">东京</span><span class="route-arrow">→</span>
+<span class="route-pill">名古屋</span><span class="route-arrow">→</span>
+<span class="route-pill">京都</span><span class="route-arrow">→</span>
+<span class="route-pill">大阪</span><span class="route-arrow">→</span>
+<span class="route-pill">神户</span>
+</div>
+</div>
+
+<!-- DATE NAVIGATION -->
+<div class="date-nav-wrap">
+<div class="date-nav" id="dateNav">
+<div class="date-pill active" data-day="1"><span class="dd">7/11</span><span class="dl">Day1 东京</span></div>
+<div class="date-pill" data-day="2"><span class="dd">7/12</span><span class="dl">Day2 东京</span></div>
+<div class="date-pill" data-day="3"><span class="dd">7/13</span><span class="dl">Day3 名古屋</span></div>
+<div class="date-pill" data-day="4"><span class="dd">7/14</span><span class="dl">Day4 京都</span></div>
+<div class="date-pill" data-day="5"><span class="dd">7/15</span><span class="dl">Day5 大阪</span></div>
+<div class="date-pill" data-day="6"><span class="dd">7/16</span><span class="dl">Day6 USJ</span></div>
+<div class="date-pill" data-day="7"><span class="dd">7/17</span><span class="dl">Day7 祇园</span></div>
+<div class="date-pill" data-day="8"><span class="dd">7/18</span><span class="dl">Day8 神户</span></div>
+<div class="date-pill return" data-day="9"><span class="dd">7/19</span><span class="dl">返程</span></div>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat-card"><div class="si">🏙️</div><div class="sn">2晚</div><div class="sl">东京涩谷</div></div>
+<div class="stat-card"><div class="si">🏯</div><div class="sn">1晚</div><div class="sl">名古屋</div></div>
+<div class="stat-card"><div class="si">⛩️</div><div class="sn">1晚</div><div class="sl">京都祇园</div></div>
+<div class="stat-card"><div class="si">🐙</div><div class="sn">3晚</div><div class="sl">大阪城</div></div>
+<div class="stat-card"><div class="si">🔥</div><div class="sn">2场</div><div class="sl">祇园祭</div></div>
+<div class="stat-card"><div class="si">🎆</div><div class="sn">1场</div><div class="sl">神户花火</div></div>
+</div>
+
+<!-- REMINDERS -->
+<div class="rem-section">
+<div class="rem-header" onclick="document.getElementById('remBody').classList.toggle('open');this.querySelector('.arrow').textContent=document.getElementById('remBody').classList.contains('open')?'▲':'▼'">
+<h3>⏰ 预约倒计时</h3><span class="arrow">▼</span>
+</div>
+<div class="rem-body" id="remBody">
+<div class="rem-item"><span class="rem-date">✅已订</span><span class="rem-content">🥩 Mouriya神户和牛 · 7.18 12:15 · 待确认</span><span class="rem-tag done">已完成</span></div>
+<div class="rem-item"><span class="rem-date">7.6前</span><span class="rem-content">🎢 USJ快通+三把扫帚/任天堂餐厅</span><span class="rem-tag urgent">待办</span></div>
+<div class="rem-item"><span class="rem-date">7.7前</span><span class="rem-content">🎨 森美术馆罗恩穆克展门票</span><span class="rem-tag urgent">待办</span></div>
+<div class="rem-item"><span class="rem-date">7.8前</span><span class="rem-content">🍲 京都美登利寿喜烧 · 提前3天</span><span class="rem-tag done">已预约</span></div>
+<div class="rem-item"><span class="rem-date">7.9前</span><span class="rem-content">🐋 海游馆套票</span><span class="rem-tag done">已预约</span></div>
+<div class="rem-item"><span class="rem-date">7.11前</span><span class="rem-content">🦀 蟹道乐 · 提前2天</span><span class="rem-tag done">已预约</span></div>
+<div class="rem-item"><span class="rem-date">7.13</span><span class="rem-content">🍱 蓬莱轩 · 11:00开店到店</span><span class="rem-tag normal">备忘</span></div>
+<div class="rem-item"><span class="rem-date">7.17</span><span class="rem-content">🔥 祇园祭山鉾巡游 · 提前1h占位</span><span class="rem-tag normal">备忘</span></div>
+<div class="rem-item"><span class="rem-date">7.18</span><span class="rem-content">🎆 神户花火 · 提前占位+驱蚊液</span><span class="rem-tag normal">备忘</span></div>
+</div>
+</div>
+
+<!-- ===== TAB 0: 概览 ===== -->
+<div class="page active" id="page-概览">
+<div style="padding:12px 0">
+
+<div class="ov-card" style="border-left:3px solid var(--blue)">
+<h4 style="color:var(--blue)">📍 住宿一览</h4>
+<div class="irow"><span class="il">Day1-2 东京</span><span class="iv">涩谷民宿 · 151-0071</span></div>
+<div class="irow"><span class="il">Day3 名古屋</span><span class="iv">日航尚格酒店 · 中村区名站5-20-13</span></div>
+<div class="irow"><span class="il">Day4 京都</span><span class="iv">京都民宿 · 600-8186</span></div>
+<div class="irow"><span class="il">Day5-8 大阪</span><span class="iv">TAKETO STAY · 都岛区东野田町3-1-22</span></div>
+</div>
+
+<div class="ov-card" style="border-left:3px solid #a78bfa">
+<h4 style="color:#a78bfa">🎫 交通券速查</h4>
+<div class="irow"><span class="il">Suica卡</span><span class="iv">Day1成田机场办理 · 全程通用</span></div>
+<div class="irow"><span class="il">JR关西广域券</span><span class="iv">7.14-7.18 · 京都大阪神户JR</span></div>
+<div class="irow"><span class="il">京都巴士一日券</span><span class="iv">Day4 · ¥700</span></div>
+<div class="irow"><span class="il">阪神一日券</span><span class="iv">Day8 · ¥500</span></div>
+<div class="irow"><span class="il">名古屋市内</span><span class="iv">刷Suica即可</span></div>
+</div>
+
+<div class="ov-card" style="border-left:3px solid var(--green)">
+<h4 style="color:var(--green)">📱 出行必备</h4>
+<div class="irow"><span class="il">Google Maps</span><span class="iv">换乘+步行导航</span></div>
+<div class="irow"><span class="il">Suica App</span><span class="iv">查余额+充值</span></div>
+<div class="irow"><span class="il">翻译App</span><span class="iv">Google Translate离线包</span></div>
+<div class="irow"><span class="il">USJ App</span><span class="iv">看实时排队时间</span></div>
+</div>
+</div>
+</div>
+
+<!-- ===== TAB 1: 行程 ===== -->
+<div class="page" id="page-行程">
+<!-- DAY 1 -->
+<div class="day-card" id="dc1">
+<div class="day-summary">
+<div class="day-time"><div class="day-num">1</div><div class="day-date">7.11<br>周五</div></div>
+<div class="day-info">
+<h4>东京 · 抵达日</h4>
+<div class="day-sub">✈️福州→成田13:55 · 🏨涩谷</div>
+<div class="day-tags"><span class="day-tag must">涩谷十字路口</span><span class="day-tag must">SHIBUYA SKY</span><span class="day-tag">新宿商圈</span><span class="day-tag">相扑表演</span><span class="day-tag">思出横丁</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">涩谷十字路口</span><span class="checklist-tag">SHIBUYA SKY</span><span class="checklist-tag">思出横丁</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc1',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc1-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">13:55</span>成田T1落地 · 办Suica卡</div>
+<div class="tl-item"><span class="tl-time">15:00</span>成田特快N'EX → 涩谷（约80min）</div>
+<div class="tl-item"><span class="tl-time">16:30</span>涩谷十字路口 · 忠犬八公 · SHIBUYA SKY</div>
+<div class="tl-item"><span class="tl-time">18:30</span>步行前往新宿商圈</div>
+<div class="tl-item"><span class="tl-time">19:50</span>🎯 新宿相扑表演入场</div>
+<div class="tl-item"><span class="tl-time">21:30</span>思出横丁居酒屋夜宵</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&q=80" alt="涩谷十字路口" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 涩谷十字路口</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">世界最繁忙十字路口，一次绿灯3000人同时过街。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• Scramble交叉口·站在中间拍<br>• 忠犬八公像·合影<br>• 星巴克二楼窗口·免费俯拍</div>
+</div>
+<div class="spot-tip">📸 拍人群涌动的瞬间，用慢门让行人变流光</div>
+<div class="spot-selfie">🤳 忠犬八公像前（排队约5分钟）</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/SHIBUYA_SCRAMBLE_SQUARE_East_Tower.jpg/800px-SHIBUYA_SCRAMBLE_SQUARE_East_Tower.jpg" alt="SHIBUYA SKY" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 SHIBUYA SKY</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">涩谷上空229m·屋顶直升机坪+数字艺术。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• SKY STAGE·屋顶直升机坪<br>• SKY GALLERY·数字光影<br>• CLOUD HAMMOCK·空中吊床</div>
+</div>
+<div class="spot-tip">📸 黄昏16:00入场·同时拍日落和夜景</div>
+<div class="spot-selfie">🤳 SKY STAGE边缘·东京全景做背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1558014168-4ad2d27fb109?w=600&q=80" alt="新宿思出横丁" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 新宿思出横丁</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">战后保留的窄巷·几十家居酒屋·烟雾缭绕。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 思出横丁窄巷全景<br>• 随便一家居酒屋坐下<br>• 烧鸟+生啤组合</div>
+</div>
+<div class="spot-tip">📸 窄巷暖黄灯光+烟雾·拍出昭和感</div>
+<div class="spot-selfie">🤳 居酒屋吧台前举杯</div>
+</div>
+<div class="tip">💡 涩谷街边拉面/简餐无需预约。相扑场馆周边定食店Walk-in。星巴克二楼免费俯瞰十字路口。</div>
+</div></div>
+</div>
+
+<!-- DAY 2 -->
+<div class="day-card" id="dc2">
+<div class="day-summary">
+<div class="day-time"><div class="day-num">2</div><div class="day-date">7.12<br>周六</div></div>
+<div class="day-info">
+<h4>东京全天 · 艺术+动漫+潮流</h4>
+<div class="day-sub">🏨涩谷 · ⚠️已删除新宿</div>
+<div class="day-tags"><span class="day-tag must">森美术馆·罗恩穆克</span><span class="day-tag">秋叶原</span><span class="day-tag">原宿竹下通</span><span class="day-tag">表参道</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">森美术馆</span><span class="checklist-tag">秋叶原</span><span class="checklist-tag">原宿竹下通</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc2',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc2-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">10:00</span>六本木森美术馆 · 罗恩穆克雕塑展（53F/2.5h）</div>
+<div class="tl-item"><span class="tl-time">12:30</span>秋叶原动漫电器街午餐（一兰拉面Walk-in）</div>
+<div class="tl-item"><span class="tl-time">14:30</span>原宿竹下通 · 表参道逛街</div>
+<div class="tl-item"><span class="tl-time">18:00</span>六本木高空观景台看东京夜景</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Roppongi_Hills_2013-12-01.jpg/800px-Roppongi_Hills_2013-12-01.jpg" alt="六本木森美术馆" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 六本木森美术馆</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">53层高空美术馆·罗恩穆克超写实雕塑展。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 罗恩穆克巨型人体雕塑<br>• 53层室内观景·东京塔view<br>• 屋顶SKY DECK（另付¥500）</div>
+</div>
+<div class="spot-tip">📸 雕塑与窗外东京塔同框·最有张力</div>
+<div class="spot-selfie">🤳 53层落地窗前·东京塔背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sotokanda%2C_Akihabara_Electric_Town_at_night_20231114.png/800px-Sotokanda%2C_Akihabara_Electric_Town_at_night_20231114.png" alt="秋叶原" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 秋叶原</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">全球宅文化圣地·电器·手办·女仆咖啡。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• Yodobashi Camera电器城<br>• Radio会馆·手办模型<br>• 街机厅·复古游戏</div>
+</div>
+<div class="spot-tip">📸 霓虹灯招牌+动漫广告牌·夜景最赛博朋克</div>
+<div class="spot-selfie">🤳 大型动漫看板前</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?w=600&q=80" alt="原宿竹下通" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 原宿竹下通</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">东京潮流发源地·可丽饼+彩虹棉花糖。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 竹下通入口标志<br>• 可丽饼店·边走边吃<br>• 表参道·建筑大师作品群</div>
+</div>
+<div class="spot-tip">📸 竹下通入口+拥挤人潮·青春感爆棚</div>
+<div class="spot-selfie">🤳 彩虹棉花糖前（排队也要拍）</div>
+</div>
+<div class="bcard"><div class="bh">🎟️ 森美术馆购票</div><ol><li>官网 mori.art.museum</li><li>选7.12 · 10:00第一场</li><li>线上购票¥2,000免排队</li></ol></div>
+<div class="tip">💡 秋叶原免税+银联折扣。⚠️今晚不去新宿（Day1已去过），改六本木夜景。</div>
+</div></div>
+</div>
+
+<!-- DAY 3 -->
+<div class="day-card" id="dc3">
+<div class="day-summary">
+<div class="day-time"><div class="day-num p">3</div><div class="day-date">7.13<br>周日</div></div>
+<div class="day-info">
+<h4>名古屋 · 名城×美食</h4>
+<div class="day-sub">🚄东京→名古屋 1.5h · 🏨日航尚格</div>
+<div class="day-tags"><span class="day-tag must">名古屋城</span><span class="day-tag must">大须观音</span><span class="day-tag must">矢场炸猪排</span><span class="day-tag">绿洲21</span><span class="day-tag">电视塔</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">名古屋城</span><span class="checklist-tag">富士山新干线</span><span class="checklist-tag">电视塔夜景</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc3',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc3-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">08:00</span>东京站→Nozomi→名古屋(1.5h)</div>
+<div class="tl-item"><span class="tl-time">10:30</span>名古屋城+本丸御殿（天守阁维修/1.5h）</div>
+<div class="tl-item"><span class="tl-time">12:00</span>大须观音+商店街 · 矢场炸猪排</div>
+<div class="tl-item"><span class="tl-time">16:00</span>荣商圈·绿洲21·电视塔</div>
+<div class="tl-item"><span class="tl-time">19:00</span>登塔夜景 · 🍱蓬莱轩鳗鱼饭</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Nagoya_Castle_7.jpg/800px-Nagoya_Castle_7.jpg" alt="名古屋城" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 名古屋城</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">日本三大名城·德川家康建造·本丸御殿金碧辉煌。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 本丸御殿·复元金屏风<br>• 金鯱（屋顶金色海兽）<br>• 二之丸庭园</div>
+</div>
+<div class="spot-tip">📸 本丸御殿正面+蓝天·金色细节最出片</div>
+<div class="spot-selfie">🤳 天守阁前（虽维修中但外观仍壮观）</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&q=80" alt="富士山新干线" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 富士山新干线</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">Nozomi号上的经典窗外风景·右E席·发车40分钟后。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 右E席靠窗·静冈段<br>• 富士山全貌+雪顶（7月残雪）<br>• 新富士站附近最佳</div>
+</div>
+<div class="spot-tip">📸 提前备相机·30-60秒·连拍·车窗反光注意</div>
+<div class="spot-selfie">🤳 侧脸+窗外富士山·最佳旅行封面照</div>
+</div>
+<div class="bcard"><div class="bh">🍱 蓬莱轩预约规则</div><ol><li>官网 houraiken.com · 仅日文</li><li>✅ 会席套餐：提前3天电话预约</li><li>❌ 纯鳗鱼三吃：不接受预约</li><li>🚫 7月暑期周末完全关闭预约</li><li>✅ 最佳策略：11:00开店直接到店！</li></ol></div>
+<div class="alert">🚫 仅日语/英文电话预约 · 旺季直接到店最稳妥</div>
+<div class="tip">💡 矢场丼错峰11点或14点。酒店步行10分钟到名古屋站。</div>
+</div></div>
+</div>
+
+<!-- DAY 4 -->
+<div class="day-card" id="dc4">
+<div class="day-summary">
+<div class="day-time"><div class="day-num r">4</div><div class="day-date">7.14<br>周一</div></div>
+<div class="day-info">
+<h4>京都 · 祇园祭宵山 🔥</h4>
+<div class="day-sub">🚄名古屋→京都33min · 🏨京都600-8186</div>
+<div class="day-tags"><span class="day-tag must">🗻富士山观景</span><span class="day-tag must">伏见稻荷</span><span class="day-tag must">清水寺</span><span class="day-tag must">金阁寺</span><span class="day-tag must">🔥宵山</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">富士山</span><span class="checklist-tag">伏见稻荷</span><span class="checklist-tag">清水寺</span><span class="checklist-tag">金阁寺</span><span class="checklist-tag">宵山</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc4',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc4-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">07:30</span>名古屋站·Nozomi <b style="color:#f97316">🗻必选右E席！</b></div>
+<div class="tl-item"><span class="tl-time">08:10</span>🗻 静冈段富士山最佳观景（发车后40min/30-60秒）</div>
+<div class="tl-item"><span class="tl-time">08:33</span>抵达京都站 · 寄存行李</div>
+<div class="tl-item"><span class="tl-time">09:30</span>伏见稻荷千本鸟居</div>
+<div class="tl-item"><span class="tl-time">12:00</span>清水寺 · 和服拍照 · 二年坂三年坂</div>
+<div class="tl-item"><span class="tl-time">14:30</span>金阁寺（镜湖池倒影）</div>
+<div class="tl-item"><span class="tl-time">17:00</span>🔥 祇园祭宵山！四条通封路·灯笼市集</div>
+<div class="tl-item"><span class="tl-time">21:00</span>八坂神社夜游 · 祭典小吃</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&q=80" alt="富士山新干线" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 富士山新干线</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">Nozomi号上的经典窗外风景·右E席·发车40分钟后。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 右E席靠窗·静冈段<br>• 富士山全貌+雪顶（7月残雪）<br>• 新富士站附近最佳</div>
+</div>
+<div class="spot-tip">📸 提前备相机·30-60秒·连拍·车窗反光注意</div>
+<div class="spot-selfie">🤳 侧脸+窗外富士山·最佳旅行封面照</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=600&q=80" alt="伏见稻荷" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 伏见稻荷</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">万座朱红鸟居绵延山间·世界级拍照圣地。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 千本鸟居隧道<br>• 奥社奉拜所·许愿石<br>• 山顶展望（步行2h）</div>
+</div>
+<div class="spot-tip">📸 鸟居隧道仰拍·穿亮色衣服反差最大·越往上人越少</div>
+<div class="spot-selfie">🤳 鸟居隧道中间回头·光影穿过鸟居打在脸上</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Kiyomizu.jpg/800px-Kiyomizu.jpg" alt="清水寺" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 清水寺</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">悬空木造舞台·无钉一根钉子·和服拍照首选。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 清水舞台·京都全景<br>• 音羽瀑布·三道泉水<br>• 地主神社·祈求良缘</div>
+</div>
+<div class="spot-tip">📸 日落时分·舞台+京都全景·穿上和服拍</div>
+<div class="spot-selfie">🤳 清水舞台栏杆边·京都天际线背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg/800px-Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg" alt="金阁寺" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 金阁寺</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">三层金箔贴面临水楼阁·京都最美庭园。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 镜湖池倒影·经典机位<br>• 金阁三层不同风格<br>• 夕佳亭茶室</div>
+</div>
+<div class="spot-tip">📸 上午阳光·金阁正面+镜湖倒影</div>
+<div class="spot-selfie">🤳 镜湖池前·金阁倒影做背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=600&q=80" alt="祇园祭宵山" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 祇园祭宵山</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">京都三大祭之首·四条通封路变步行街天堂。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 23座巨型山鉾花灯<br>• 四条通夜市·烤鱿鱼·苹果糖<br>• 八坂神社夜游</div>
+</div>
+<div class="spot-tip">📸 山鉾亮灯后·灯笼+夜色·手机挂绳防丢</div>
+<div class="spot-selfie">🤳 穿浴衣站在山鉾前·京都旅行最高光</div>
+</div>
+<div class="warn">🗻 Nozomi号右E席·发车40分钟后静冈段·夏季清晨雾气低·提前备好相机·仅30-60秒！</div>
+<div class="bcard"><div class="bh">🍲 美登利寿喜烧</div><ol><li>提前3天官网预约晚餐</li><li>午市可直接到店（无需预约）</li></ol></div>
+<div class="tip">💡 京都巴士一日券Day4用。穿亮色衣在鸟居拍照。祭典穿浴衣+100分。</div>
+</div></div>
+</div>
+
+<!-- DAY 5 -->
+<div class="day-card" id="dc5">
+<div class="day-summary">
+<div class="day-time"><div class="day-num g">5</div><div class="day-date">7.15<br>周二</div></div>
+<div class="day-info">
+<h4>大阪 · 海游馆🐋+道顿堀</h4>
+<div class="day-sub">🚂京都→大阪 · 🏨TAKETO STAY</div>
+<div class="day-tags"><span class="day-tag must">海游馆鲸鲨</span><span class="day-tag must">天保山摩天轮</span><span class="day-tag must">道顿堀</span><span class="day-tag">心斋桥</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">海游馆</span><span class="checklist-tag">道顿堀</span><span class="checklist-tag">摩天轮</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc5',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc5-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">09:00</span>京都退房 · 行李寄存京都站</div>
+<div class="tl-item"><span class="tl-time">10:00</span>空手逛京都剩余街巷</div>
+<div class="tl-item"><span class="tl-time">13:00</span>JR→大阪 · 入住TAKETO STAY</div>
+<div class="tl-item"><span class="tl-time">14:30</span>🐋 海游馆 · 鲸鲨巨缸(2-3h)</div>
+<div class="tl-item"><span class="tl-time">17:00</span>天保山摩天轮 · 海边散步</div>
+<div class="tl-item"><span class="tl-time">20:00</span>道顿堀·心斋桥 · 章鱼烧·大阪烧</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Kaiy%C5%ABkan.jpg/800px-Kaiy%C5%ABkan.jpg" alt="大阪海游馆" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 大阪海游馆</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">世界最大级水族馆·9m深鲸鲨巨缸。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 太平洋水槽·鲸鲨<br>• 水母银河·梦幻光影<br>• 企鹅喂食秀·触摸池</div>
+</div>
+<div class="spot-tip">📸 鲸鲨从头顶游过·广角仰拍·水母区暗光拍剪影</div>
+<div class="spot-selfie">🤳 鲸鲨缸前·巨大鱼影做背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg/800px-Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg" alt="道顿堀" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 道顿堀</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">大阪美食心脏·格力高跑男广告牌。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 格力高广告牌·跑男打卡点<br>• 蟹道乐大螃蟹看板<br>• 道顿堀川夜景</div>
+</div>
+<div class="spot-tip">📸 格力高看板前·模仿跑男姿势·夜景霓虹最美</div>
+<div class="spot-selfie">🤳 格力高广告牌下·大阪必拍</div>
+</div>
+<div class="bcard"><div class="bh">🐋 海游馆套票</div><ol><li>官网 kaiyukan.com</li><li>水族馆+摩天轮套票线上购</li><li>成人约¥3,000</li></ol></div>
+<div class="bcard"><div class="bh">🦀 蟹道乐 · 道顿堀本店</div><ol><li>官网 douraku.co.jp</li><li>提前2天预约！</li><li>推荐午市套餐¥4,000-8,000</li></ol></div>
+<div class="tip">💡 大件行李存京都站→傍晚取→大阪。道顿堀空腹来！分几家吃。</div>
+</div></div>
+</div>
+
+<!-- DAY 6 -->
+<div class="day-card" id="dc6">
+<div class="day-summary">
+<div class="day-time"><div class="day-num y">6</div><div class="day-date">7.16<br>周三</div></div>
+<div class="day-info">
+<h4>环球影城USJ · 全天 🎢</h4>
+<div class="day-sub">🏨TAKETO STAY</div>
+<div class="day-tags"><span class="day-tag must">任天堂世界</span><span class="day-tag must">哈利波特</span><span class="day-tag must">飞天翼龙</span><span class="day-tag">花车巡游</span><span class="day-tag">夜场灯光</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">任天堂世界</span><span class="checklist-tag">哈利波特城堡</span><span class="checklist-tag">飞天翼龙</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc6',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc6-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">08:00</span>开园直冲任天堂世界！</div>
+<div class="tl-item"><span class="tl-time">10:00</span>哈利波特禁忌之旅</div>
+<div class="tl-item"><span class="tl-time">12:00</span>三把扫帚午餐（已预约）</div>
+<div class="tl-item"><span class="tl-time">14:00</span>飞天翼龙过山车+花车巡游</div>
+<div class="tl-item"><span class="tl-time">18:00</span>任天堂咖啡厅</div>
+<div class="tl-item"><span class="tl-time">20:00</span>夜场灯光表演</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/SHIBUYA_SCRAMBLE_SQUARE_East_Tower.jpg/800px-SHIBUYA_SCRAMBLE_SQUARE_East_Tower.jpg" alt="USJ任天堂世界" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 USJ任天堂世界</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">真实版马力欧·AR过山车全球独有。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 马里奥赛车·AR眼镜打库巴<br>• 蘑菇王国全景<br>• 哈利波特城堡</div>
+</div>
+<div class="spot-tip">📸 蘑菇王国入口+❓砖块·哈利波特城堡倒影</div>
+<div class="spot-selfie">🤳 任天堂世界入口水管前·马力欧帽子+手环</div>
+</div>
+<div class="bcard"><div class="bh">🎫 USJ门票+快通</div><ol><li>官网 usj.co.jp（有中文）</li><li>⚠️ Express Pass必须提前买！</li><li>三把扫帚/任天堂咖啡厅线上预约</li><li>下载USJ App看实时排队</li><li>任天堂世界需整理券或快通</li></ol></div>
+<div class="alert">⚠️ <b>快速通票必买！</b>暑期排队2-3小时/项目。开园直冲任天堂世界！</div>
+</div></div>
+</div>
+
+<!-- DAY 7 -->
+<div class="day-card" id="dc7">
+<div class="day-summary">
+<div class="day-time"><div class="day-num r">7</div><div class="day-date">7.17<br>周四</div></div>
+<div class="day-info">
+<h4>祇园祭 · 山鉾大巡游 🔥</h4>
+<div class="day-sub">🚂大阪⇄京都日归 · 🏨TAKETO STAY</div>
+<div class="day-tags"><span class="day-tag must">方案A：全天京都看巡游（主推）</span><span class="day-tag">方案B：留大阪·梅田蓝天大厦+购物</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">山鉾巡游</span><span class="checklist-tag">辻回し</span><span class="checklist-tag">浴衣打卡</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc7',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc7-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">07:00</span>JR大阪→京都 · 仅带随身小包</div>
+<div class="tl-item"><span class="tl-time">09:00</span>🔥 山鉾大巡游！四条通·河原町最佳</div>
+<div class="tl-item"><span class="tl-time">12:00</span>辻回し·巨型花车90°转弯</div>
+<div class="tl-item"><span class="tl-time">18:00</span>后宵山夜市</div>
+<div class="tl-item"><span class="tl-time">21:00</span>JR返回大阪</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=600&q=80" alt="山鉾巡游" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 山鉾巡游</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">23座12吨巨型花车巡行·辻回し全场沸腾。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 辻回し·巨型花车90°转弯<br>• 长刀鉾·最大12吨<br>• 四条通·河原町交叉口</div>
+</div>
+<div class="spot-tip">📸 辻回し瞬间·花车倾斜45°·连拍抓最佳</div>
+<div class="spot-selfie">🤳 花车巡游中做背景·穿浴衣更出片</div>
+</div>
+<div class="alert">🌡️ <b>35°C高温！</b>带水+防晒+折叠椅+遮阳伞。有料观览席¥3,000-5,000。大件行李存大阪民宿！</div>
+</div></div>
+</div>
+
+<!-- DAY 8 -->
+<div class="day-card" id="dc8">
+<div class="day-summary">
+<div class="day-time"><div class="day-num o">8</div><div class="day-date">7.18<br>周五</div></div>
+<div class="day-info">
+<h4>神户 · A5和牛+花火 🎆</h4>
+<div class="day-sub">🚃阪神电车→三宫 · 🏨TAKETO STAY</div>
+<div class="day-tags"><span class="day-tag must">🥩Mouriya和牛</span><span class="day-tag must">北野异人馆</span><span class="day-tag must">神户港塔</span><span class="day-tag must">🎆海上花火</span></div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">北野异人馆</span><span class="checklist-tag">神户港</span><span class="checklist-tag">花火</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc8',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc8-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">09:00</span>阪神电车难波→三宫(¥500一日券)</div>
+<div class="tl-item"><span class="tl-time">11:30</span>🥩 Mouriya A5和牛午餐</div>
+<div class="tl-item"><span class="tl-time">14:00</span>北野异人馆·风见鸡馆·萌黄馆</div>
+<div class="tl-item"><span class="tl-time">16:00</span>神户塔·美利坚公园</div>
+<div class="tl-item"><span class="tl-time">18:00</span>元町商业街</div>
+<div class="tl-item"><span class="tl-time">20:00</span>🎆 神户港海上花火！</div>
+</div>
+<div class="spot-section-title">📸 今日景点指南</div>
+<div class="spot-card">
+<img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/20190901_Kobe_Port_Tower-1.jpg/800px-20190901_Kobe_Port_Tower-1.jpg" alt="神户港花火" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 神户港花火</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">行程唯一大型烟花·免费观赏·海上花火。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 美利坚公园·最佳位<br>• 神户港塔+花火同框<br>• 港区灯光夜景</div>
+</div>
+<div class="spot-tip">📸 花火+神户塔+海面倒影·三要素同框</div>
+<div class="spot-selfie">🤳 花火绽放时·仰拍+烟花做背景</div>
+</div>
+<div class="spot-card">
+<img class="spot-img" src="https://images.unsplash.com/photo-1549693578-df5e3e35b1f4?w=600&q=80" alt="北野异人馆" loading="lazy" onerror="this.style.display='none'">
+<h5>📍 北野异人馆</h5>
+<p style="font-size:11px;color:var(--dim);margin:4px 0">神户开港时期领事馆旧址·欧风街道。</p>
+<div style="margin:6px 0">
+<div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:3px">👀 必看</div>
+<div class="spot-see">• 风见鸡の馆·红色鸡风标<br>• 萌黄の馆·绿色洋楼<br>• 星巴克北野物语馆</div>
+</div>
+<div class="spot-tip">📸 风见鸡馆正面+蓝天·欧风情调</div>
+<div class="spot-selfie">🤳 星巴克北野物语馆·百年洋楼里喝咖啡</div>
+</div>
+<div class="hl">✅ <b>Mouriya · 已预订(待确认)</b><br>📍守屋三宫店 · <b>7.18 12:15</b> · 2位 · 吧台禁烟<br>📧 yyuxuan65@gmail.com<br>⚠️ 等店员电话/邮件确认后完成预订</div>
+<div class="warn">🎆 提前到美利坚公园占位！结束前5分钟往外走。带驱蚊液！</div>
+</div></div>
+</div>
+
+<!-- DAY 9 -->
+<div class="day-card" id="dc9">
+<div class="day-summary">
+<div class="day-time"><div class="day-num" style="background:#64748b">✈</div><div class="day-date">7.19<br>周六</div></div>
+<div class="day-info">
+<h4>大阪返程 · 福州</h4>
+<div class="day-sub">✈️关西T1→福州</div>
+<div class="checklist-wrap"><span class="cl-label">📸 必拍:</span><span class="checklist-tag">关西机场</span><span class="checklist-tag">旅途回顾</span></div>
+</div>
+</div>
+<div class="day-expand"><button class="day-expand-btn" onclick="toggleDay('dc9',this)">展开详情 <span class="arr">▼</span></button></div>
+<div class="day-detail" id="dc9-detail"><div class="day-detail-inner">
+<div class="timeline">
+<div class="tl-item"><span class="tl-time">上午</span>收拾行李 · 难波→关西T1</div>
+<div class="tl-item"><span class="tl-time">午后</span>✈️ 航班飞回福州 🏠</div>
+</div>
+<div class="tip">💡 机场简餐/便利店。Suica可在机场退卡取押金。</div>
+</div></div>
+</div>
+</div>
+
+<!-- ===== TAB 2: 美食 ===== -->
+<div class="page" id="page-美食">
+
+<div class="food-card" id="fc1">
+<div class="food-header" onclick="toggleFood('fc1')">
+<div class="food-emoji">🥩</div>
+<div class="food-info">
+<h4>Mouriya · 神户百年和牛</h4>
+<div class="food-sub">7.18 12:15 · 2位 · 吧台禁烟</div>
+</div>
+<span class="food-status reserved" data-fid="fc1" data-date="2026-07-18" data-days="7" onclick="event.stopPropagation();toggleReservation(this)" title="点击切换状态">✅ 已预订<span class="countdown"></span><span class="tap-hint">点击切换</span></span>
+</div>
+<div class="food-body" id="fc1-body"><div class="food-body-inner">
+<div class="hl" style="margin-top:0">✅ <b>已提交预订</b> · 守屋三宫店 · 7.18 12:15 · 2位 · 吧台禁烟<br>📧 确认邮件已发至 yyuxuan65@gmail.com</div>
+<div class="alert">⚠️ <b>预订尚未完成！</b>店员会电话/邮件联系确认。21点后预订可能次日联系。24小时内无回复需重订或致电：08613110798591。</div>
+<div class="tip">💡 如果本店客满，可以去其他分店（预订时已选择该选项）。</div>
+</div></div>
+</div>
+
+<div class="food-card" id="fc2">
+<div class="food-header" onclick="toggleFood('fc2')">
+<div class="food-emoji">🍱</div>
+<div class="food-info">
+<h4>蓬莱轩 · 名古屋鳗鱼饭</h4>
+<div class="food-sub">7.13晚餐 · 仅日语/英文</div>
+</div>
+<span class="food-status expired" data-fid="fc2" data-date="2026-07-13" data-days="0" onclick="event.stopPropagation();toggleReservation(this)" title="点击切换状态">暑期不可约<span class="countdown"></span><span class="tap-hint">点击切换</span></span>
+</div>
+<div class="food-body" id="fc2-body"><div class="food-body-inner">
+<ol>
+<li>官网 houraiken.com 查看菜单</li>
+<li>会席套餐：提前3天电话预约（052-xxx-xxxx）</li>
+<li>纯鳗鱼三吃：不接受预约·只能到店排队</li>
+<li>7月暑期周末完全关闭预约通道</li>
+</ol>
+<div class="tip">💡 最佳策略：7.13（周日）11:00开店直接到店！错峰更稳妥。</div>
+</div></div>
+</div>
+
+<div class="food-card" id="fc3">
+<div class="food-header" onclick="toggleFood('fc3')">
+<div class="food-emoji">🍲</div>
+<div class="food-info">
+<h4>美登利 · 京都寿喜烧</h4>
+<div class="food-sub">7.14晚餐 · 提前3天官网预约</div>
+</div>
+<span class="food-status needed" data-fid="fc3" data-date="2026-07-14" data-days="3" onclick="event.stopPropagation();toggleReservation(this)" title="点击切换状态">需预约<span class="countdown"></span><span class="tap-hint">点击切换</span></span>
+</div>
+<div class="food-body" id="fc3-body"><div class="food-body-inner">
+<ol>
+<li>提前3天官网预约晚餐（约7.11操作）</li>
+<li>午市可直接到店·无需预约</li>
+</ol>
+</div></div>
+</div>
+
+<div class="food-card" id="fc4">
+<div class="food-header" onclick="toggleFood('fc4')">
+<div class="food-emoji">🦀</div>
+<div class="food-info">
+<h4>蟹道乐 · 大阪道顿堀</h4>
+<div class="food-sub">7.15/16晚餐 · 中文页面</div>
+</div>
+<span class="food-status needed" data-fid="fc4" data-date="2026-07-15" data-days="2" onclick="event.stopPropagation();toggleReservation(this)" title="点击切换状态">提前2天<span class="countdown"></span><span class="tap-hint">点击切换</span></span>
+</div>
+<div class="food-body" id="fc4-body"><div class="food-body-inner">
+<ol>
+<li>官网 douraku.co.jp → 中文</li>
+<li>选「道顿堀本店」</li>
+<li>提前2天预约（约7.13操作）</li>
+<li>推荐午市套餐¥4,000-8,000</li>
+</ol>
+</div></div>
+</div>
+
+<div class="food-card" id="fc5">
+<div class="food-header" onclick="toggleFood('fc5')">
+<div class="food-emoji">🎢</div>
+<div class="food-info">
+<h4>USJ餐厅</h4>
+<div class="food-sub">7.16 · usj.co.jp</div>
+</div>
+<span class="food-status needed" data-fid="fc5" data-date="2026-07-16" data-days="7" onclick="event.stopPropagation();toggleReservation(this)" title="点击切换状态">必须预约<span class="countdown"></span><span class="tap-hint">点击切换</span></span>
+</div>
+<div class="food-body" id="fc5-body"><div class="food-body-inner">
+<ol>
+<li>三把扫帚（哈利波特园区）：线上预约座位</li>
+<li>任天堂咖啡厅（Kinopio's Cafe）：提前预约</li>
+<li>其他餐厅：现场排队即可</li>
+</ol>
+</div></div>
+</div>
+
+<div class="food-card" id="fc6">
+<div class="food-header" onclick="toggleFood('fc6')">
+<div class="food-emoji">🍜</div>
+<div class="food-info">
+<h4>无需预约 · 随到随吃</h4>
+<div class="food-sub">街边美食随心吃</div>
+</div>
+<span class="food-status normal">自由</span>
+</div>
+<div class="food-body" id="fc6-body"><div class="food-body-inner">
+<div style="font-size:11px;color:var(--dim);line-height:1.8">
+· 涩谷/新宿街边拉面 · 秋叶原一兰拉面 · 思出横丁居酒屋<br>
+· 矢场炸猪排（名古屋·错峰到店）· 祇园祭小吃摊<br>
+· 道顿堀章鱼烧/大阪烧/串炸 · 神户街边海鲜甜品<br>
+· 所有连锁简餐、便利店
+</div>
+</div></div>
+</div>
+
+</div>
+
+<!-- ===== TAB 3: 交通 ===== -->
+<div class="page" id="page-交通">
+
+<div class="trans-card" style="border-left:3px solid var(--blue)">
+<h4>💳 Suica卡</h4>
+<div class="irow"><span class="il">办理</span><span class="iv">Day1成田机场·自动售票机</span></div>
+<div class="irow"><span class="il">充值</span><span class="iv">现金充值·Suica App查余额</span></div>
+<div class="irow"><span class="il">范围</span><span class="iv">东京全域+关西地铁巴士通用</span></div>
+<div class="irow"><span class="il">退卡</span><span class="iv">返程时机场退卡取押金¥500</span></div>
+</div>
+
+<div class="trans-card" style="border-left:3px solid #fbbf24">
+<h4>🎫 JR关西广域周游券</h4>
+<div class="irow"><span class="il">期间</span><span class="iv">7.14-7.18（5天）</span></div>
+<div class="irow"><span class="il">范围</span><span class="iv">京都·大阪·神户JR全线</span></div>
+<div class="irow"><span class="il">不含</span><span class="iv">Nozomi新干线（需另购）</span></div>
+</div>
+
+<div class="trans-card" style="border-left:3px solid var(--green)">
+<h4>🚌 京都巴士一日券</h4>
+<div class="irow"><span class="il">Day4使用</span><span class="iv">¥700·巴士站/京都站购买</span></div>
+<div class="irow"><span class="il">覆盖</span><span class="iv">京都市内巴士全线</span></div>
+</div>
+
+<div class="trans-card" style="border-left:3px solid #f97316">
+<h4>🚃 阪神一日券</h4>
+<div class="irow"><span class="il">Day8使用</span><span class="iv">¥500·难波站购买</span></div>
+<div class="irow"><span class="il">区间</span><span class="iv">大阪难波⇄神户三宫·约45min</span></div>
+</div>
+
+<div class="trans-card" style="border-left:3px solid #a78bfa">
+<h4>🔑 关键换乘</h4>
+<div class="irow"><span class="il">Day3 东京→名古屋</span><span class="iv">Nozomi新干线·约1.5h</span></div>
+<div class="irow"><span class="il">Day4 名古屋→京都</span><span class="iv">Nozomi·33min 🗻右E席</span></div>
+<div class="irow"><span class="il">Day5 京都→大阪</span><span class="iv">JR京都线·约30min</span></div>
+<div class="irow"><span class="il">Day7 大阪⇄京都</span><span class="iv">JR当日往返·约30min</span></div>
+<div class="irow"><span class="il">Day8 大阪→神户</span><span class="iv">阪神电车·难波→三宫·约45min</span></div>
+</div>
+
+</div>
+
+<!-- ===== TAB 4: 急救 ===== -->
+<div class="page" id="page-急救">
+
+<div class="em-card" style="border-left:3px solid var(--red)">
+<h4 style="color:var(--red)">📞 紧急电话</h4>
+<div class="irow"><span class="il">警察</span><span class="iv big">110</span></div>
+<div class="irow"><span class="il">急救·消防</span><span class="iv big">119</span></div>
+<div class="irow"><span class="il">中国大使馆</span><span class="iv">03-3403-3388</span></div>
+<div class="irow"><span class="il">多语种热线</span><span class="iv">0570-078-911</span></div>
+</div>
+
+<div class="em-card" style="border-left:3px solid #f97316">
+<h4 style="color:#f97316">🗣️ 日语急救用语（中文音译）</h4>
+<div class="irow"><span class="il">救命！</span><span class="iv">塔斯开忒！（たすけて）</span></div>
+<div class="irow"><span class="il">叫警察！</span><span class="iv">开撒次喔拥得！（警察を呼んで）</span></div>
+<div class="irow"><span class="il">病院在哪？</span><span class="iv">标因哇多阔？（病院はどこ）</span></div>
+<div class="irow"><span class="il">会说英语吗？</span><span class="iv">诶勾哈那塞马斯卡？（英語話せますか）</span></div>
+<div class="irow"><span class="il">请帮我</span><span class="iv">塔斯开忒库达赛（助けてください）</span></div>
+</div>
+
+<div class="em-card" style="border-left:3px solid #fbbf24">
+<h4 style="color:#fbbf24">💳 丢失应对</h4>
+<div class="irow"><span class="il">护照丢失</span><span class="iv">→ 中国大使馆·东京/大阪均有</span></div>
+<div class="irow"><span class="il">Suica丢失</span><span class="iv">→ 任一JR站窗口挂失</span></div>
+<div class="irow"><span class="il">信用卡丢失</span><span class="iv">→ 拨打发卡行国际热线</span></div>
+<div class="irow"><span class="il">钱包丢失</span><span class="iv">→ 去最近交番（派出所）</span></div>
+</div>
+
+<div class="em-card" style="border-left:3px solid var(--blue)">
+<h4 style="color:var(--blue)">🏥 实用Tips</h4>
+<div class="em-tips">
+· 日本便利店(7-11/全家/罗森)有ATM·取日元<br>
+· 大多数药店(薬局)有常用药·日语「風邪薬」=感冒药<br>
+· 酒店前台可帮忙叫出租车·打电话叫救护车<br>
+· 遇到麻烦找交番（小派出所）·遍布全日本<br>
+· Google Translate离线包提前下载日语
+</div>
+</div>
+
+</div>
+
+<!-- BOTTOM NAV - WHITE -->
+<div class="bnav" id="bottomNav">
+<a href="#概览" class="active" onclick="switchTab('概览')"><span class="bi">🏠</span>概览</a>
+<a href="#行程" onclick="switchTab('行程')"><span class="bi">📅</span>行程</a>
+<a href="#美食" onclick="switchTab('美食')"><span class="bi">🍱</span>美食</a>
+<a href="#交通" onclick="switchTab('交通')"><span class="bi">🚃</span>交通</a>
+<a href="#急救" onclick="switchTab('急救')"><span class="bi">🆘</span>急救</a>
+</div>
+
+<script>
+// ===== RESERVATION SYSTEM =====
+var RESERVATION_KEY = 'japan_reservations';
+
+function getReservations(){
+  try{return JSON.parse(localStorage.getItem(RESERVATION_KEY))||{};}catch(e){return{};}
+}
+function saveReservations(data){
+  localStorage.setItem(RESERVATION_KEY,JSON.stringify(data));
+}
+
+function toggleReservation(el){
+  var fid = el.dataset.fid;
+  var data = getReservations();
+  var isReserved = el.classList.contains('reserved');
+  
+  if(isReserved){
+    el.classList.remove('reserved');
+    el.classList.add('needed');
+    el.innerHTML = '需预约<span class="countdown"></span><span class="tap-hint">点击切换</span>';
+    delete data[fid];
+  } else {
+    el.classList.remove('needed','expired');
+    el.classList.add('reserved');
+    el.innerHTML = '✅ 已预约<span class="countdown"></span><span class="tap-hint">点击切换</span>';
+    data[fid] = true;
+  }
+  saveReservations(data);
+  updateAllCountdowns();
+}
+
+function updateAllCountdowns(){
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  
+  document.querySelectorAll('.food-status[data-date]').forEach(function(el){
+    var fid = el.dataset.fid;
+    var mealDate = new Date(el.dataset.date + 'T00:00:00+09:00');
+    var daysUntil = Math.ceil((mealDate - now) / (1000*60*60*24));
+    var advanceDays = parseInt(el.dataset.days) || 0;
+    var deadlineDays = daysUntil - advanceDays;
+    
+    var cd = el.querySelector('.countdown');
+    if(!cd) return;
+    
+    var isReserved = el.classList.contains('reserved');
+    var isExpired = el.classList.contains('expired');
+    
+    if(isReserved){
+      cd.textContent = daysUntil + '天后用餐';
+    } else if(isExpired){
+      cd.textContent = '无法预约';
+    } else if(deadlineDays <= 0 && daysUntil > 0){
+      cd.textContent = '⚠️ 仅剩' + daysUntil + '天·尽快约';
+      cd.style.color = '#ff6b81';
+    } else if(daysUntil <= 0){
+      el.classList.remove('needed');
+      el.classList.add('expired');
+      el.innerHTML = '已过期<span class="countdown"></span><span class="tap-hint">点击切换</span>';
+      var cd2 = el.querySelector('.countdown');
+      if(cd2) cd2.textContent = '';
+    } else {
+      cd.textContent = '提前' + advanceDays + '天·' + deadlineDays + '天后约';
+      cd.style.color = '';
+    }
+  });
+}
+
+(function initReservations(){
+  var data = getReservations();
+  document.querySelectorAll('.food-status[data-fid]').forEach(function(el){
+    var fid = el.dataset.fid;
+    if(data[fid]){
+      el.classList.remove('needed','expired');
+      el.classList.add('reserved');
+      el.innerHTML = '✅ 已预约<span class="countdown"></span><span class="tap-hint">点击切换</span>';
+    }
+  });
+  updateAllCountdowns();
+})();
+
+// Toggle day detail
+function toggleDay(id,btn){
+var d=document.getElementById(id+'-detail');
+var open=d.classList.toggle('open');
+btn.classList.toggle('open',open);
+btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+// Toggle food card
+function toggleFood(id){
+document.getElementById(id+'-body').classList.toggle('open');
+}
+
+// Tab switching
+function switchTab(name){
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+document.getElementById('page-'+name).classList.add('active');
+document.querySelectorAll('.bnav a').forEach(function(a){a.classList.remove('active')});
+document.querySelectorAll('.bnav a[href="#'+name+'"]').forEach(function(a){a.classList.add('active')});
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Bottom nav clicks
+document.querySelectorAll('.bnav a').forEach(function(a){
+a.addEventListener('click',function(e){e.preventDefault();switchTab(this.getAttribute('href').replace('#',''))});
+});
+
+// Date nav clicks
+document.querySelectorAll('.date-pill').forEach(function(p){
+p.addEventListener('click',function(){
+document.querySelectorAll('.date-pill').forEach(function(x){x.classList.remove('active')});
+this.classList.add('active');
+var day=this.dataset.day;
+switchTab('行程');
+setTimeout(function(){
+var card=document.getElementById('dc'+day);
+if(card){card.scrollIntoView({behavior:'smooth',block:'start'})}
+},350);
+});
+});
+</script>
+</body>
+</html>
