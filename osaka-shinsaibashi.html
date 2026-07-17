@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心斋桥 · 橘子街 · 道顿堀 — 7/17一日攻略</title>
+<style>
+  :root {
+    --bg: #0a0e27;
+    --card: #111640;
+    --accent: #3b7cff;
+    --red: #ff4757;
+    --gold: #f0a500;
+    --green: #2ed573;
+    --text: #e4e8f0;
+    --sub: #8899aa;
+    --border: #1e2456;
+    --radius: 16px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 100px;
+    line-height: 1.6;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1a4e 0%, #0d1b3e 40%, #1a0a2e 100%);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .hero .emoji { font-size: 48px; margin-bottom: 8px; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .hero .date { font-size: 13px; color: var(--sub); margin-bottom: 12px; }
+  .hero .route {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 13px; color: var(--accent); font-weight: 600;
+    background: rgba(59,124,255,0.08); padding: 10px 16px; border-radius: 24px;
+  }
+  .hero .route span { color: var(--sub); }
+
+  /* Stats row */
+  .stats {
+    display: flex; gap: 8px; margin-bottom: 20px;
+  }
+  .stat {
+    flex:1; background: var(--card); border-radius: 12px;
+    padding: 14px 10px; text-align: center; border: 1px solid var(--border);
+  }
+  .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat .label { font-size: 11px; color: var(--sub); margin-top: 2px; }
+
+  /* Section */
+  .section { margin-bottom: 20px; }
+  .section h2 {
+    font-size: 17px; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section h2 .dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+
+  /* Spot card */
+  .spot {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; margin-bottom: 12px; border: 1px solid var(--border);
+  }
+  .spot-header {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+  }
+  .spot-header .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .icon-orange { background: rgba(240,165,0,0.15); }
+  .icon-shinsai { background: rgba(59,124,255,0.12); }
+  .icon-doton { background: rgba(255,71,87,0.12); }
+  .spot-header h3 { font-size: 16px; font-weight: 700; }
+  .spot-header .time { font-size: 12px; color: var(--sub); }
+  .spot p { font-size: 13px; color: var(--sub); margin-bottom: 10px; line-height: 1.7; }
+  .spot .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 4px 10px; border-radius: 12px;
+    font-weight: 600; white-space: nowrap;
+  }
+  .tag-shop { background: rgba(59,124,255,0.12); color: var(--accent); }
+  .tag-food { background: rgba(240,165,0,0.12); color: var(--gold); }
+  .tag-tip  { background: rgba(46,213,115,0.1); color: var(--green); }
+
+  /* Tip box */
+  .tip-list { list-style: none; }
+  .tip-list li {
+    font-size: 12px; color: var(--sub); padding: 8px 0;
+    border-bottom: 1px solid var(--border); display: flex; gap: 8px;
+  }
+  .tip-list li:last-child { border: none; }
+  .tip-list .bullet {
+    color: var(--accent); font-weight: 700; flex-shrink: 0;
+  }
+
+  /* Food card */
+  .food {
+    background: var(--card); border-radius: 12px;
+    padding: 14px; margin-bottom: 8px; border: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .food .name { font-size: 14px; font-weight: 600; }
+  .food .name .jp { font-size: 11px; color: var(--sub); margin-left: 6px; }
+  .food .info { font-size: 11px; color: var(--sub); }
+  .food .price { font-size: 12px; color: var(--gold); font-weight: 600; }
+
+  /* Walking line */
+  .walk-line {
+    background: var(--card); border-radius: var(--radius);
+    padding: 16px; margin-bottom: 20px; border: 1px solid var(--border);
+    position: relative;
+  }
+  .walk-line .step {
+    display: flex; align-items: flex-start; gap: 12px; padding: 6px 0;
+  }
+  .walk-line .step-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .walk-line .step-text { font-size: 13px; line-height: 1.6; }
+  .walk-line .step-text .hl { color: var(--accent); font-weight: 600; }
+  .walk-line .connector {
+    width: 2px; height: 14px; background: var(--border); margin-left: 11px;
+  }
+
+  /* ⚠️ warning */
+  .warn {
+    background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.25);
+    border-radius: 12px; padding: 12px 14px; margin-bottom: 16px;
+    font-size: 12px; color: var(--red); display: flex; gap: 8px; align-items: flex-start;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="emoji">🦀🗼👟</div>
+  <h1>心斋桥 · 橘子街 · 道顿堀</h1>
+  <div class="date">7月17日 周六 · 大阪 · JST</div>
+  <div class="route">
+    橘子街 <span>→</span> 心斋桥筋 <span>→</span> 道顿堀
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="num">3</div><div class="label">区域</div></div>
+  <div class="stat"><div class="num">2.5km</div><div class="label">步行</div></div>
+  <div class="stat"><div class="num">5-6h</div><div class="label">建议时长</div></div>
+</div>
+
+<!-- ⚠️ Saturday warning -->
+<div class="warn">
+  <span>⚠️</span>
+  <span>周六+暑假，道顿堀人流极大。Glico广告牌前拍照需排队，做好心理准备。橘子街店铺大多<b>11:00</b>开门，别到太早。</span>
+</div>
+
+<!-- Walking Route -->
+<div class="walk-line">
+  <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--accent);">🗺️ 步行路线</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text"><span class="hl">橘子街</span>（11:00–13:00）<br>地下鉄四ツ橋駅 或 心斎橋駅 出站 → 西へ徒歩5分<br>潮牌·古着·家居买手店</div>
+  </div>
+  <div class="connector"></div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text"><span class="hl">心斋桥筋商店街</span>（13:00–16:00）<br>橘子街 → 东へ步行3分 → 心斎橋筋入口<br>600m拱廊商店街，南下逛到道顿堀</div>
+  </div>
+  <div class="connector"></div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text"><span class="hl">道顿堀</span>（16:00–晚餐）<br>心斎橋筋走到尽头即达 · 看霓虹灯亮起<br>拍照 → 逛吃 → 晚餐</div>
+  </div>
+</div>
+
+<!-- ====== 1. Orange Street ====== -->
+<div class="section">
+  <h2><span class="dot" style="background:var(--gold)"></span>🍊 橘子街 · オレンジストリート</h2>
+
+  <div class="spot">
+    <div class="spot-header">
+      <div class="icon icon-orange">👟</div>
+      <div>
+        <h3>立花通り（橘子街）</h3>
+        <div class="time">⏰ 店铺大多 11:00–20:00 · 周六全开</div>
+      </div>
+    </div>
+    <p>大阪潮牌圣地，堀江区域。家具买手店起家，后来潮牌/古着店大量进驻。Supreme、BAPE、WTAPS、Neighborhood、Undefeated 都在这条街上，很多是关西唯一门店。</p>
+    <div class="tags">
+      <span class="tag tag-shop">Supreme 大阪</span>
+      <span class="tag tag-shop">BAPE STORE</span>
+      <span class="tag tag-shop">WTAPS</span>
+      <span class="tag tag-shop">Neighborhood</span>
+      <span class="tag tag-shop">Undefeated</span>
+      <span class="tag tag-shop">BIOTOP</span>
+      <span class="tag tag-shop">KINDAL 古着</span>
+      <span class="tag tag-tip">部分只收现金💴</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 2. Shinsaibashi ====== -->
+<div class="section">
+  <h2><span class="dot" style="background:var(--accent)"></span>🏬 心斋桥筋商店街</h2>
+
+  <div class="spot">
+    <div class="spot-header">
+      <div class="icon icon-shinsai">🛍️</div>
+      <div>
+        <h3>心斎橋筋商店街</h3>
+        <div class="time">⏰ 店铺 10:00–21:00（药妆部分开到23:00）</div>
+      </div>
+    </div>
+    <p>大阪最著名的拱廊商店街，全长约600米。有顶棚不怕日晒雨淋。药妆、百元店、UNIQLO旗舰店（5层）、GU、ABC-MART 都在这条街上。</p>
+    <div class="tags">
+      <span class="tag tag-shop">松本清 薬妆</span>
+      <span class="tag tag-shop">大国薬妆</span>
+      <span class="tag tag-shop">UNIQLO 旗舰</span>
+      <span class="tag tag-shop">大创 百元店</span>
+      <span class="tag tag-shop">GU</span>
+      <span class="tag tag-tip">拱廊全天候☔️不怕</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 3. Dotonbori ====== -->
+<div class="section">
+  <h2><span class="dot" style="background:var(--red)"></span>🌃 道顿堀</h2>
+
+  <div class="spot">
+    <div class="spot-header">
+      <div class="icon icon-doton">🦀</div>
+      <div>
+        <h3>道頓堀 · 食い倒れの街</h3>
+        <div class="time">⏰ 傍晚–深夜最佳 · 📸 Glico广告牌16:00后亮灯</div>
+      </div>
+    </div>
+    <p>大阪美食与霓虹灯的心脏。运河两岸布满巨型立体招牌——Glico跑者、蟹道乐大螃蟹、づぼらや河豚灯笼。天色渐暗时霓虹灯亮起，才是道顿堀真正的样子。</p>
+    <div class="tags">
+      <span class="tag tag-tip">📸 戎桥拍Glico</span>
+      <span class="tag tag-tip">🌃 16:00后亮灯</span>
+      <span class="tag tag-tip">🦀 蟹道乐大螃蟹</span>
+      <span class="tag tag-tip">🎌 运河游船</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== EAT ====== -->
+<div class="section">
+  <h2><span class="dot" style="background:var(--red)"></span>🍽️ 道顿堀吃什么</h2>
+
+  <div class="food">
+    <div>
+      <div class="name">味乃家 <span class="jp">Ajino-ya</span></div>
+      <div class="info">お好み焼き · 米其林必比登 · 排队约30分</div>
+    </div>
+    <div class="price">¥1,500-</div>
+  </div>
+
+  <div class="food">
+    <div>
+      <div class="name">たこ八 <span class="jp">Tako-hachi</span></div>
+      <div class="info">章鱼烧总本店 · 道顿堀河边</div>
+    </div>
+    <div class="price">¥600-</div>
+  </div>
+
+  <div class="food">
+    <div>
+      <div class="name">元祖串かつ だるま</div>
+      <div class="info">串炸 · 新世界发源 · 道顿堀分店</div>
+    </div>
+    <div class="price">¥1,000-</div>
+  </div>
+
+  <div class="food">
+    <div>
+      <div class="name">道顿堀今井 <span class="jp">Imai</span></div>
+      <div class="info">うどん · 1946年老铺 · 出汁清淡</div>
+    </div>
+    <div class="price">¥1,200-</div>
+  </div>
+
+  <div class="food">
+    <div>
+      <div class="name">くれおーる <span class="jp">Creo-Ru</span></div>
+      <div class="info">章鱼烧 · 当地排队名店 · 外脆内软</div>
+    </div>
+    <div class="price">¥500-</div>
+  </div>
+</div>
+
+<!-- ====== TIPS ====== -->
+<div class="section">
+  <h2><span class="dot" style="background:var(--green)"></span>💡 实用提示</h2>
+  <ul class="tip-list">
+    <li><span class="bullet">🚻</span>厕所：心斋桥大丸百货（北馆/南馆都有）、道顿堀ドン・キホーテ（観覧車那栋）</li>
+    <li><span class="bullet">💴</span>现金：橘子街部分古着店/BAPE只收现金，建议带2-3万日元</li>
+    <li><span class="bullet">📱</span>WiFi：心斋桥筋商店街有免费WiFi（Shinsaibashi_Free_WiFi）</li>
+    <li><span class="bullet">☔️</span>下雨：心斋桥筋全程拱廊不怕，橘子街是露天街道需备伞</li>
+    <li><span class="bullet">🏧</span>ATM：7-Eleven（Seven Bank）汇率最优，心斋桥筋有几家</li>
+    <li><span class="bullet">🚇</span>最近站：地下鉄心斎橋駅（御堂筋線/長堀鶴見緑地線）、四ツ橋駅</li>
+    <li><span class="bullet">📸</span>Glico拍照：站在戎桥正中间拍，可请路人互相拍（大阪人很热情）</li>
+  </ul>
+</div>
+
+</body>
+</html>
