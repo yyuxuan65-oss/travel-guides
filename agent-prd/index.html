@@ -12,6 +12,7 @@
     --green: #238636;
     --blue: #58a6ff;
     --red: #f85149;
+    --amber: #d2991d;
     --text: #e1e4e8;
     --sub: #8b8fa3;
     --input-bg: #0d1117;
@@ -36,8 +37,10 @@
   .subtitle {
     color: var(--sub);
     font-size: 13px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+    line-height: 1.6;
   }
+  .subtitle b { color: var(--text); }
 
   .section {
     background: var(--card);
@@ -58,6 +61,7 @@
     vertical-align: middle;
     font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
   }
+  .section-num.alt { background: #6e40c9; }
   .section-title {
     font-size: 15px;
     font-weight: 700;
@@ -69,8 +73,10 @@
     font-size: 12px;
     margin-top: 6px;
     margin-bottom: 12px;
-    line-height: 1.5;
+    line-height: 1.6;
   }
+  .section-hint b { color: var(--text); }
+  .section-hint .li { display:block; padding-left: 2px; }
 
   textarea, input[type="text"] {
     width: 100%;
@@ -118,6 +124,50 @@
     border-color: var(--blue);
     background: rgba(88,166,255,0.08);
   }
+  .radio-group.dir label { flex: 1; min-width: 150px; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 14px; }
+  .radio-group.dir label .t { font-size: 14px; font-weight: 600; color: var(--text); }
+  .radio-group.dir label .d { font-size: 11px; color: var(--sub); line-height: 1.5; }
+  .radio-group.dir label:has(input:checked) .t { color: var(--blue); }
+
+  /* 场景多选 chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips label {
+    display: inline-flex;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--sub);
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .chips label:hover { border-color: var(--blue); }
+  .chips input[type="checkbox"] { display: none; }
+  .chips label:has(input:checked) {
+    border-color: var(--green);
+    background: rgba(35,134,54,0.16);
+    color: #fff;
+    font-weight: 600;
+  }
+  .chips.quick label { border-radius: 6px; font-size: 12px; padding: 5px 10px; }
+
+  /* 费用提示 */
+  .cost-note {
+    margin-top: 14px;
+    background: rgba(210,153,29,0.10);
+    border: 1px solid rgba(210,153,29,0.45);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    color: #e8d9b0;
+    line-height: 1.75;
+  }
+  .cost-note b { color: #ffd479; }
+  .cost-note .tier { display:block; }
+  .cost-note .hot { color: #ffb37a; font-weight: 700; }
 
   /* 按钮区 */
   .btn-bar {
@@ -218,15 +268,55 @@
 <body>
 
 <h1>🤖 Agent 定制 · 需求梳理</h1>
-<div class="subtitle">花15分钟填完。不用管技术能不能实现——只说现在的痛点和想要的效果。</div>
+<div class="subtitle">花 15 分钟填完。不用管技术能不能实现——<b>只说现在的痛点和想要的效果</b>。<br>填完点底部按钮 → 一键复制 → 发给我，24 小时内出方案和报价。</div>
 
 <div class="progress-wrap">
   <div class="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
-  <div class="progress-text" id="progress-text">0/8</div>
+  <div class="progress-text" id="progress-text">0/10</div>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- 0 方向 -->
+<div class="section">
+  <div class="section-num alt">0</div>
+  <span class="section-title">先选方向</span>
+  <span class="section-status" id="stat-0"></span>
+  <div class="section-hint">你要的是哪一种？先选一个，后面就照着这个方向填。</div>
+  <div class="radio-group dir" id="rg-dir">
+    <label><input type="radio" name="dir" value="办公助手"><span class="t">🏢 办公助手</span><span class="d">给团队/岗位用：报表汇总、跟单录入、客诉归集、批量素材、日常重复劳动自动化</span></label>
+    <label><input type="radio" name="dir" value="老板的私人助手"><span class="t">👔 老板的私人助手</span><span class="d">只给你自己用：日报周报、行情/舆情监控、决策辅助、随问随答、要什么推什么</span></label>
+  </div>
+</div>
+
+<!-- 场景多选 -->
+<div class="section">
+  <div class="section-num alt">✦</div>
+  <span class="section-title">你要哪些能力</span>
+  <span class="section-status" id="stat-scene"></span>
+  <div class="section-hint">勾上你想要的，拿不准也没事——后面正文里说清楚就行。</div>
+  <div class="chips" id="scene-chips">
+    <label><input type="checkbox" name="scene" value="表格/数据处理"><span>表格/数据处理</span></label>
+    <label><input type="checkbox" name="scene" value="文案/稿件"><span>文案/稿件</span></label>
+    <label><input type="checkbox" name="scene" value="邮箱监控/自动回复"><span>邮箱监控/自动回复</span></label>
+    <label><input type="checkbox" name="scene" value="数据抓取/监控"><span>数据抓取/监控</span></label>
+    <label><input type="checkbox" name="scene" value="编程/脚本开发"><span>编程/脚本开发</span></label>
+    <label><input type="checkbox" name="scene" value="电商运营（核价/上架/客服/报表）"><span>电商运营</span></label>
+    <label><input type="checkbox" name="scene" value="制作软件/工具"><span>制作软件/工具</span></label>
+    <label><input type="checkbox" name="scene" value="网站运营"><span>网站运营</span></label>
+    <label><input type="checkbox" name="scene" value="做图（批量出图/改图）"><span>做图</span></label>
+    <label><input type="checkbox" name="scene" value="做视频（生成/剪辑/混剪）"><span>做视频</span></label>
+    <label><input type="checkbox" name="scene" value="其他"><span>其他</span></label>
+  </div>
+  <div class="cost-note">
+    <b>💰 费用提示（先看一眼，免得报价时落差）</b>
+    <span class="tier">· 文本类（表格、文案、邮件、数据、编程）—— 成本最低，报价最友好</span>
+    <span class="tier">· 图片类（批量出图、改图、生成配图）—— 成本中等，按张计费</span>
+    <span class="tier">· <span class="hot">视频类（生成视频、批量剪辑、混剪）—— 成本最高</span>，按生成次数和算力计费</span>
+    <span class="tier">原因很简单：视频和图片是模型一次一次跑出来的，跑一次付一次钱；文本类便宜。所以<b>视频、图片类的报价会明显高于文本类</b>，这是行业成本结构，不是我们想多收。</span>
+  </div>
+</div>
 
 <!-- 1 -->
 <div class="section">
@@ -234,7 +324,13 @@
   <span class="section-title">业务场景</span>
   <span class="section-status" id="stat-1"></span>
   <div class="section-hint">你是做什么行业的？什么业务？你在这个业务里扮演什么角色？（老板/运营/销售/操盘手）</div>
-  <textarea id="q1" placeholder="比如：商业地产招商负责人，负责3个项目的招商和运营"></textarea>
+  <div class="chips quick" id="quick-ind" style="margin-bottom:10px;">
+    <label data-ind="炒股"><span>炒股</span></label>
+    <label data-ind="招商"><span>招商</span></label>
+    <label data-ind="电商"><span>电商</span></label>
+    <label data-ind="制造业"><span>制造业</span></label>
+  </div>
+  <textarea id="q1" placeholder="比如：电商店主，做家居类目，自己兼运营+选品 / 制造业老板，管2个车间 / 商业地产招商负责人，负责3个项目 / 炒股操盘手，自有资金做日频"></textarea>
 </div>
 
 <!-- 2 -->
@@ -243,7 +339,7 @@
   <span class="section-title">当前痛点</span>
   <span class="section-status" id="stat-2"></span>
   <div class="section-hint">现在这件事怎么干的？每天/每周最烦的那 1-2 件事是什么？如果把这 1-2 件事自动化了，能省多少时间？</div>
-  <textarea id="q2" placeholder="比如：每周一花3小时从Excel拉数据做经营分析报告 / 每天收盘后手动算20个指标看要不要操作"></textarea>
+  <textarea id="q2" placeholder="比如：每周一花3小时从Excel拉数据做经营分析报告 / 每天收盘后手动算20个指标 / 每天手工核30条供应商报价 / 车间日报靠群里喊、晚上自己汇总"></textarea>
 </div>
 
 <!-- 3 -->
@@ -252,7 +348,7 @@
   <span class="section-title">理想状态</span>
   <span class="section-status" id="stat-3"></span>
   <div class="section-hint">你希望 Agent 帮你做什么？用日常语言说。有现成的流程/SOP 文档直接发过来。</div>
-  <textarea id="q3" placeholder="比如：每周末自动出一份经营分析，推到我飞书 / 每天收盘自动扫描持仓，达标了给我发信号"></textarea>
+  <textarea id="q3" placeholder="比如：每周末自动出一份经营分析推到我飞书 / 每天收盘自动扫描持仓，达标了发信号 / 供应商报价一发来就自动核价出结果"></textarea>
 </div>
 
 <!-- 4 -->
@@ -261,7 +357,7 @@
   <span class="section-title">数据来源</span>
   <span class="section-status" id="stat-4"></span>
   <div class="section-hint">Agent 需要读哪些数据？数据是固定的还是每天变化的？有现成的数据源还是需要 Agent 自己抓取？</div>
-  <textarea id="q4" placeholder="比如：飞书多维表格里的商户营业额 / Tushare股票数据 / 客户通过飞书发过来的Excel报价表"></textarea>
+  <textarea id="q4" placeholder="比如：飞书多维表格里的商户营业额 / 股票行情数据 / 1688或淘宝后台导出的报价单Excel / 工厂ERP导出的订单表 / 客户发来的邮件附件"></textarea>
 </div>
 
 <!-- 5 -->
@@ -269,8 +365,8 @@
   <div class="section-num">5</div>
   <span class="section-title">产出物</span>
   <span class="section-status" id="stat-5"></span>
-  <div class="section-hint">Agent 最终要给你什么？（推送消息 / 自动填表 / 生成报告 / 自动回复客户）给谁看？（你自己 / 团队成员 / 客户）</div>
-  <textarea id="q5" placeholder="比如：一条飞书消息，包含今日操作建议 / 一份自动填好的月度经营分析报告"></textarea>
+  <div class="section-hint">Agent 最终要给你什么？（推送消息 / 自动填表 / 生成报告 / 自动回复客户 / 出图出片）给谁看？（你自己 / 团队成员 / 客户）</div>
+  <textarea id="q5" placeholder="比如：一条飞书消息，包含今日操作建议 / 自动填好的月度经营分析报告 / 一份核价结果Excel / 每天18点推给客户的跟单进度 / 一批可直接上架的详情图"></textarea>
 </div>
 
 <!-- 6 -->
@@ -279,7 +375,7 @@
   <span class="section-title">使用频率 & 人数</span>
   <span class="section-status" id="stat-6"></span>
   <div class="section-hint">什么时候用？几个人用？</div>
-  
+
   <div style="margin-bottom:10px; font-size:13px; color:var(--sub);">频率</div>
   <div class="radio-group" id="rg-freq">
     <label><input type="radio" name="freq" value="每天"><span>每天</span></label>
@@ -289,7 +385,7 @@
   </div>
 
   <div style="margin-top:12px; font-size:13px; color:var(--sub);">使用人数</div>
-  <input type="text" id="q6_users" placeholder="比如：我自己用 / 我+2个团队成员">
+  <input type="text" id="q6_users" placeholder="比如：我自己用 / 我+2个团队成员 / 全公司10个人">
 </div>
 
 <!-- 7 -->
@@ -297,7 +393,7 @@
   <div class="section-num">7</div>
   <span class="section-title">预算范围</span>
   <span class="section-status" id="stat-7"></span>
-  <div class="section-hint">你愿意为这件事投入多少？（月付 / 一次性）不需要精确数字，给个区间就行。</div>
+  <div class="section-hint">你愿意为这件事投入多少？（月付 / 一次性）不需要精确数字，给个区间就行。<br>提醒：勾了视频/图片场景的，因为算力成本摆在那，报价会比纯文本类高一档。</div>
   <input type="text" id="q7" placeholder="比如：月付 1000-3000 / 一次性 1-3 万">
 </div>
 
@@ -306,7 +402,7 @@
   <div class="section-num">8</div>
   <span class="section-title">还有什么想说的</span>
   <span class="section-status" id="stat-8"></span>
-  <div class="section-hint">补充信息、具体例子、担心的问题……随便写。</div>
+  <div class="section-hint">补充信息、具体例子、担心的问题……随便写。有现成的流程/SOP、表格样例、截图，填完直接发我。</div>
   <textarea id="q8" placeholder="选填，没有就空着"></textarea>
 </div>
 
@@ -320,7 +416,14 @@
 (function() {
   // ===== 自动保存到 localStorage =====
   var fields = ['q1','q2','q3','q4','q5','q6_users','q7','q8'];
-  var SAVE_KEY = 'agent_prd_draft';
+  var SAVE_KEY = 'agent_prd_draft_v2';
+
+  function checkedList(name) {
+    return Array.prototype.map.call(
+      document.querySelectorAll('input[name="' + name + '"]:checked'),
+      function(el) { return el.value; }
+    );
+  }
 
   function save() {
     var data = {};
@@ -328,15 +431,17 @@
       var el = document.getElementById(id);
       if (el) data[id] = el.value;
     });
-    // 单选
     var freq = document.querySelector('input[name="freq"]:checked');
     data['freq'] = freq ? freq.value : '';
+    var dir = document.querySelector('input[name="dir"]:checked');
+    data['dir'] = dir ? dir.value : '';
+    data['scenes'] = checkedList('scene');
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));
   }
 
   function load() {
     try {
-      var raw = localStorage.getItem(SAVE_KEY);
+      var raw = localStorage.getItem(SAVE_KEY) || localStorage.getItem('agent_prd_draft');
       if (!raw) return;
       var data = JSON.parse(raw);
       fields.forEach(function(id) {
@@ -347,6 +452,14 @@
         var r = document.querySelector('input[name="freq"][value="' + data.freq + '"]');
         if (r) r.checked = true;
       }
+      if (data.dir) {
+        var d = document.querySelector('input[name="dir"][value="' + data.dir + '"]');
+        if (d) d.checked = true;
+      }
+      (data.scenes || []).forEach(function(v) {
+        var c = document.querySelector('input[name="scene"][value="' + v + '"]');
+        if (c) c.checked = true;
+      });
     } catch(e) {}
   }
 
@@ -357,17 +470,44 @@
       updateProgress();
     });
   });
-  document.querySelectorAll('input[name="freq"]').forEach(function(el) {
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(function(el) {
     el.addEventListener('change', function() {
       save();
       updateProgress();
     });
   });
 
+  // ===== 行业快捷填 =====
+  var INDUSTRY = {
+    '炒股': '炒股/操盘手，自有资金做股票，日常盯盘、复盘、扫数据找机会',
+    '招商': '商业地产招商负责人，负责3个项目的招商和运营',
+    '电商': '电商店主/运营，做家居类目，自己兼选品、上架、客服、报表',
+    '制造业': '制造业老板，管2个车间，负责订单、生产、成本'
+  };
+  document.querySelectorAll('#quick-ind label').forEach(function(lab) {
+    lab.addEventListener('click', function() {
+      var q1 = document.getElementById('q1');
+      var txt = INDUSTRY[lab.getAttribute('data-ind')] || '';
+      q1.value = q1.value.trim() ? (q1.value.trim() + '；' + txt) : txt;
+      q1.dispatchEvent(new Event('input', {bubbles:true}));
+      save();
+    });
+  });
+
   // ===== 进度条 =====
   function updateProgress() {
     var filled = 0;
-    var total = 8;
+    var total = 10;
+
+    // Q0 方向
+    var dirChecked = document.querySelector('input[name="dir"]:checked');
+    if (dirChecked) filled++;
+    document.getElementById('stat-0').textContent = dirChecked ? '✓' : '';
+
+    // 场景
+    var scenes = checkedList('scene');
+    if (scenes.length) filled++;
+    document.getElementById('stat-scene').textContent = scenes.length ? '✓' : '';
 
     // Q1-Q5: textarea
     for (var i = 1; i <= 5; i++) {
@@ -384,8 +524,9 @@
     if (document.getElementById('q7').value.trim()) filled++;
     document.getElementById('stat-7').textContent = document.getElementById('q7').value.trim() ? '✓' : '';
 
-    // Q8 不计入必填
+    // Q8 选填，填了也计入
     if (document.getElementById('q8').value.trim()) {
+      filled++;
       document.getElementById('stat-8').textContent = '✓';
     } else {
       document.getElementById('stat-8').textContent = '';
@@ -400,36 +541,40 @@
   window.generate = function() {
     var freq = document.querySelector('input[name="freq"]:checked');
     var freqVal = freq ? freq.value : '未填';
+    var dir = document.querySelector('input[name="dir"]:checked');
+    var dirVal = dir ? dir.value : '未填';
+    var scenes = checkedList('scene');
+    var hiCost = scenes.some(function(s) {
+      return s.indexOf('视频') >= 0 || s.indexOf('图') >= 0;
+    });
 
-    var text = [
-      '═══ Agent定制需求梳理 ═══',
-      '',
-      '■ 1. 业务场景',
-      document.getElementById('q1').value || '未填',
-      '',
-      '■ 2. 当前痛点',
-      document.getElementById('q2').value || '未填',
-      '',
-      '■ 3. 理想状态',
-      document.getElementById('q3').value || '未填',
-      '',
-      '■ 4. 数据来源',
-      document.getElementById('q4').value || '未填',
-      '',
-      '■ 5. 产出物',
-      document.getElementById('q5').value || '未填',
-      '',
-      '■ 6. 使用频率 & 人数',
-      '频率：' + freqVal + '   人数：' + (document.getElementById('q6_users').value || '未填'),
-      '',
-      '■ 7. 预算',
-      document.getElementById('q7').value || '未填',
-      '',
-      '■ 8. 补充',
-      document.getElementById('q8').value || '（无）',
-      '',
-      '─── 以上 ───'
-    ].join('\n');
+    function v(id) {
+      var el = document.getElementById(id);
+      return (el && el.value.trim()) ? el.value.trim() : '未填';
+    }
+
+    var lines = [];
+    lines.push('═══ Agent定制需求梳理 ═══', '');
+    lines.push('■ 0. 合作方向');
+    lines.push('产品方向：' + dirVal);
+    lines.push('需要能力：' + (scenes.length ? scenes.join('、') : '未填'));
+    if (hiCost) {
+      lines.push('⚠️ 含视频/图片能力：按生成次数和算力计费，成本明显高于文本类，报价需上浮一档');
+    }
+    lines.push('');
+    lines.push('■ 1. 业务场景', v('q1'), '');
+    lines.push('■ 2. 当前痛点', v('q2'), '');
+    lines.push('■ 3. 理想状态', v('q3'), '');
+    lines.push('■ 4. 数据来源', v('q4'), '');
+    lines.push('■ 5. 产出物', v('q5'), '');
+    lines.push('■ 6. 使用频率 & 人数');
+    lines.push('频率：' + freqVal + '   人数：' + v('q6_users'));
+    lines.push('');
+    lines.push('■ 7. 预算', v('q7'), '');
+    lines.push('■ 8. 补充', v('q8'));
+    lines.push('', '─── 以上 ───');
+
+    var text = lines.join('\n');
 
     // 复制到剪贴板
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -480,7 +625,7 @@
       var el = document.getElementById(id);
       if (el) el.value = '';
     });
-    document.querySelectorAll('input[name="freq"]').forEach(function(r) { r.checked = false; });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(function(r) { r.checked = false; });
     localStorage.removeItem(SAVE_KEY);
     updateProgress();
     showToast('已清空');
