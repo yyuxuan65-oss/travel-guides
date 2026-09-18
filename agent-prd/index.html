@@ -3,276 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Agent定制 · 需求梳理</title>
+<meta name="theme-color" content="#FFFDFB">
+<title>AI 定制 · 需求诊断</title>
 <style>
   :root {
-    --bg: #0f1117;
-    --card: #161b22;
-    --border: #21262d;
-    --green: #238636;
-    --blue: #58a6ff;
-    --red: #f85149;
-    --amber: #d2991d;
-    --text: #e1e4e8;
-    --sub: #8b8fa3;
-    --input-bg: #0d1117;
+    --bg: #FFFDFB;
+    --card: #FFFFFF;
+    --line: rgba(25,21,18,0.07);
+    --line-2: #F0E5DD;
+    --ink: #191512;
+    --ink-2: #46403B;
+    --sub: #6F665E;
+    --coral: #E86F51;
+    --coral-2: #F5926A;
+    --coral-deep: #C4503A;
+    --gold: #C19440;
+    --gold-deep: #8A6520;
+    --gold-soft: #FCF6E8;
+    --emerald: #1B9A5B;
+    --input-bg: #FFFDFC;
+    --shadow: 0 12px 32px rgba(176,116,86,0.10), 0 2px 6px rgba(176,116,86,0.05);
+    --shadow-lift: 0 18px 44px rgba(176,116,86,0.16), 0 4px 10px rgba(176,116,86,0.07);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    max-width: 640px;
+    background:
+      radial-gradient(110% 55% at 100% 0%, #FFEFE4 0%, rgba(255,239,228,0) 58%),
+      radial-gradient(100% 45% at 0% 0%, #EFF5FF 0%, rgba(239,245,255,0) 55%),
+      linear-gradient(180deg, #FFFDFB 0%, #FDF7F3 55%, #FCF4EF 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Segoe UI', sans-serif;
+    line-height: 1.65;
+    max-width: 660px;
     margin: 0 auto;
-    padding: 20px 16px 120px;
+    padding: 26px 18px 150px;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #E86F51 0%, #F0A05F 30%, #D9B25C 60%, #E86F51 100%);
+    z-index: 50;
+  }
+
+  /* ---------- 头部 ---------- */
+  .brandbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #FFFFFF;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 13px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--coral-deep);
+    box-shadow: 0 4px 14px rgba(176,116,86,0.07);
+  }
+  .brand-pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, #E86F51, #F0A05F);
+  }
+  .brand-en {
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #A79C93;
+    font-weight: 700;
   }
 
   h1 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: #fff;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    background: linear-gradient(100deg, #191512 0%, #4A3128 55%, #8A5A44 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .subtitle {
     color: var(--sub);
-    font-size: 13px;
-    margin-bottom: 24px;
-    line-height: 1.6;
+    font-size: 13.5px;
+    margin-bottom: 22px;
+    line-height: 1.75;
   }
-  .subtitle b { color: var(--text); }
+  .subtitle b { color: var(--ink-2); font-weight: 700; }
 
+  /* ---------- 进度 ---------- */
+  .progress-wrap {
+    margin-bottom: 22px;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 18px rgba(176,116,86,0.07);
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #EFE1D8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar div {
+    height: 100%;
+    background: linear-gradient(90deg, #E86F51, #F5A26B);
+    border-radius: 4px;
+    transition: width 0.35s ease;
+  }
+  .progress-text {
+    font-size: 11.5px;
+    color: var(--sub);
+    font-family: 'SF Mono', 'Menlo', monospace;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- 卡片 ---------- */
   .section {
     background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 16px;
-    margin-bottom: 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px 20px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .section:focus-within {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
   }
   .section-num {
     display: inline-block;
-    background: var(--green);
+    letter-spacing: 0.04em;
+    background: linear-gradient(135deg, #E86F51, #F0955F);
     color: #fff;
     font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-right: 8px;
+    font-weight: 800;
+    min-width: 22px;
+    text-align: center;
+    padding: 3px 8px;
+    border-radius: 8px;
+    margin-right: 9px;
     vertical-align: middle;
-    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    box-shadow: 0 4px 12px rgba(232,111,81,0.30);
+    letter-spacing: 0.04em;
   }
-  .section-num.alt { background: #6e40c9; }
+  .section-num.alt {
+    background: linear-gradient(135deg, #C19440, #E0B863);
+    box-shadow: 0 4px 12px rgba(193,148,64,0.30);
+  }
   .section-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.2px;
     vertical-align: middle;
   }
   .section-hint {
     color: var(--sub);
-    font-size: 12px;
-    margin-top: 6px;
-    margin-bottom: 12px;
-    line-height: 1.6;
+    font-size: 12.5px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    line-height: 1.8;
   }
-  .section-hint b { color: var(--text); }
-  .section-hint .li { display:block; padding-left: 2px; }
+  .section-hint b { color: var(--ink-2); }
 
+  /* ---------- 输入 ---------- */
   textarea, input[type="text"] {
     width: 100%;
     background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-size: 14px;
-    padding: 10px 12px;
+    border: 1px solid var(--line-2);
+    border-radius: 13px;
+    color: var(--ink);
+    font-size: 14.5px;
+    padding: 13px 14px;
     font-family: inherit;
-    line-height: 1.5;
+    line-height: 1.65;
     resize: vertical;
-    transition: border-color 0.15s;
+    transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
   }
+  textarea::placeholder, input[type="text"]::placeholder { color: #A79C93; }
   textarea:focus, input[type="text"]:focus {
     outline: none;
-    border-color: var(--blue);
+    background: #fff;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(232,111,81,0.11);
   }
-  textarea { min-height: 72px; }
-  input[type="text"] { min-height: 40px; }
+  textarea { min-height: 84px; }
+  input[type="text"] { min-height: 48px; }
 
-  /* 单选框组 */
-  .radio-group {
+  /* ---------- 方向卡 ---------- */
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .radio-group input[type="radio"] { display: none; }
+
+  .radio-group.dir label {
+    flex: 1;
+    min-width: 170px;
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .radio-group label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 14px;
+    flex-direction: column;
+    gap: 4px;
+    background: #fff;
+    border: 1.5px solid var(--line-2);
+    border-radius: 14px;
+    padding: 15px 16px;
     font-size: 13px;
     cursor: pointer;
-    transition: border-color 0.15s;
+    transition: all 0.2s ease;
     color: var(--sub);
   }
-  .radio-group label:hover { border-color: var(--blue); }
-  .radio-group input[type="radio"] { display: none; }
-  .radio-group input[type="radio"]:checked + span { color: var(--blue); font-weight: 600; }
-  .radio-group label:has(input:checked) {
-    border-color: var(--blue);
-    background: rgba(88,166,255,0.08);
+  .radio-group.dir label:hover { border-color: #F0BEAA; box-shadow: 0 8px 22px rgba(176,116,86,0.10); }
+  .radio-group.dir label .t {
+    font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.2px;
   }
-  .radio-group.dir label { flex: 1; min-width: 150px; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 14px; }
-  .radio-group.dir label .t { font-size: 14px; font-weight: 600; color: var(--text); }
-  .radio-group.dir label .d { font-size: 11px; color: var(--sub); line-height: 1.5; }
-  .radio-group.dir label:has(input:checked) .t { color: var(--blue); }
+  .radio-group.dir label .d { font-size: 11.5px; color: var(--sub); line-height: 1.7; }
+  .radio-group.dir label:has(input:checked) {
+    border-color: var(--coral);
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(232,111,81,0.16);
+  }
+  .radio-group.dir label:has(input:checked) .t { color: var(--coral-deep); }
+  .radio-group.dir label:has(input:checked)::after {
+    content: "已选";
+    align-self: flex-start;
+    margin-top: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #E86F51, #F0955F);
+    border-radius: 999px;
+    padding: 2px 9px;
+    letter-spacing: 0.08em;
+  }
 
-  /* 场景多选 chips */
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  /* ---------- 频率胶囊 ---------- */
+  .radio-group.plain label {
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid var(--line-2);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--sub);
+    transition: all 0.18s ease;
+  }
+  .radio-group.plain label:hover { border-color: #F0BEAA; }
+  .radio-group.plain input[type="radio"]:checked + span { color: #fff; font-weight: 700; }
+  .radio-group.plain label:has(input:checked) {
+    border-color: transparent;
+    background: linear-gradient(135deg, #E86F51, #F0955F);
+    box-shadow: 0 8px 20px rgba(232,111,81,0.28);
+  }
+
+  /* ---------- 能力胶囊 ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 9px; }
   .chips label {
     display: inline-flex;
     align-items: center;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
+    background: #fff;
+    border: 1.5px solid var(--line-2);
     border-radius: 999px;
-    padding: 7px 13px;
+    padding: 8px 15px;
     font-size: 13px;
     cursor: pointer;
-    color: var(--sub);
-    transition: border-color 0.15s, background 0.15s;
+    color: var(--ink-2);
+    transition: all 0.18s ease;
     user-select: none;
   }
-  .chips label:hover { border-color: var(--blue); }
+  .chips label:hover { border-color: #F0BEAA; box-shadow: 0 6px 16px rgba(176,116,86,0.09); }
   .chips input[type="checkbox"] { display: none; }
   .chips label:has(input:checked) {
-    border-color: var(--green);
-    background: rgba(35,134,54,0.16);
+    border-color: transparent;
+    background: linear-gradient(135deg, #E86F51, #F0955F);
     color: #fff;
-    font-weight: 600;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(232,111,81,0.26);
   }
-  .chips.quick label { border-radius: 6px; font-size: 12px; padding: 5px 10px; }
-
-  /* 费用提示 */
-  .cost-note {
-    margin-top: 14px;
-    background: rgba(210,153,29,0.10);
-    border: 1px solid rgba(210,153,29,0.45);
-    border-radius: 8px;
-    padding: 12px 14px;
+  .chips label:has(input:checked)::before { content: "✓ "; font-weight: 800; }
+  .chips.quick { margin-bottom: 12px; }
+  .chips.quick label {
+    border-radius: 10px;
     font-size: 12.5px;
-    color: #e8d9b0;
-    line-height: 1.75;
+    padding: 6px 12px;
+    color: var(--coral-deep);
+    background: #FFF7F3;
+    border-color: #F6DCCF;
   }
-  .cost-note b { color: #ffd479; }
-  .cost-note .tier { display:block; }
-  .cost-note .hot { color: #ffb37a; font-weight: 700; }
+  .chips.quick label::before { content: "+ "; font-weight: 800; color: var(--coral); }
+  .chips.quick label:has(input:checked)::before,
+  .chips.quick label::before { content: "+ "; }
 
-  /* 按钮区 */
+  /* ---------- 费用提示 ---------- */
+  .cost-note {
+    margin-top: 16px;
+    background: linear-gradient(180deg, #FFFBF2 0%, #FFFDF9 100%);
+    border: 1px solid #F1E3C8;
+    border-left: 4px solid #D9A93F;
+    border-radius: 12px;
+    padding: 16px 17px;
+    font-size: 13px;
+    color: #4A453D;
+    line-height: 1.9;
+  }
+  .cost-note b { color: #1F1B16; font-weight: 800; }
+  .cost-note .tier { display: block; }
+  .cost-note .hot { color: #B14A18; font-weight: 800; }
+  .cost-note .ct {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #8A6520;
+    margin-bottom: 7px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- 档位卡 ---------- */
+  .tiers { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
+  @media (min-width: 560px) { .tiers { grid-template-columns: 1fr 1fr 1fr; } }
+  .tiers label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: #fff;
+    border: 1.5px solid var(--line-2);
+    border-radius: 14px;
+    padding: 14px 14px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  .tiers label:hover { border-color: #F0BEAA; box-shadow: 0 10px 24px rgba(176,116,86,0.11); }
+  .tiers input[type="radio"] { display: none; }
+  .tiers .tn {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--sub);
+    text-transform: uppercase;
+  }
+  .tiers .tp {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+  }
+  .tiers .tp .u { font-size: 11px; font-weight: 600; color: var(--sub); letter-spacing: 0; }
+  .tiers .td { font-size: 11.5px; color: var(--sub); line-height: 1.65; margin-top: 3px; }
+  .tiers label:has(input:checked) {
+    border-color: var(--coral);
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(232,111,81,0.18);
+  }
+  .tiers label:has(input:checked) .tn { color: var(--coral-deep); }
+  .tiers label:has(input:checked) .tp { color: var(--ink); }
+  .tiers label:has(input:checked)::after {
+    content: "已选";
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: linear-gradient(135deg, #E86F51, #F0955F);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .tiers label:has(input:checked)::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #E86F51, #F0A05F);
+  }
+
+  /* ---------- 底栏 ---------- */
   .btn-bar {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 640px;
+    max-width: 660px;
     width: 100%;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 12px 16px;
+    background: rgba(255,253,251,0.94);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    padding: 13px 18px calc(13px + env(safe-area-inset-bottom));
     display: flex;
-    gap: 10px;
+    gap: 11px;
+    box-shadow: 0 -8px 26px rgba(176,116,86,0.08);
   }
   .btn {
     flex: 1;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 14px 16px;
+    border-radius: 13px;
+    font-size: 14.5px;
+    font-weight: 800;
     cursor: pointer;
     border: none;
-    transition: opacity 0.15s;
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.15s;
     text-align: center;
+    letter-spacing: 0.01em;
   }
-  .btn:active { opacity: 0.8; }
+  .btn:active { transform: translateY(1px) scale(0.995); }
   .btn-primary {
-    background: var(--green);
+    background: linear-gradient(135deg, #DE5F40 0%, #EE8A50 100%);
     color: #fff;
-  }
-  .btn-secondary {
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--green);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; }
-  .toast.warn { background: #d2991d; }
-
-  /* 进度条 */
-  .progress-wrap {
-    margin-bottom: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .progress-bar {
-    flex: 1;
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .progress-bar div {
-    height: 100%;
-    background: var(--green);
-    border-radius: 3px;
-    transition: width 0.3s;
-  }
-  .progress-text {
-    font-size: 12px;
-    color: var(--sub);
-    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    box-shadow: 0 10px 26px rgba(222,95,64,0.36);
+    flex: 2.2;
+    padding-left: 22px;
+    padding-right: 22px;
     white-space: nowrap;
   }
+  .btn-primary:hover { box-shadow: 0 14px 32px rgba(232,111,81,0.42); }
+  .btn-secondary {
+    background: #fff;
+    color: var(--ink-2);
+    border: 1.5px solid var(--line-2);
+  }
+  .btn-secondary:hover { border-color: #E8CFC2; }
 
-  /* 状态标记 */
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: #191512;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 700;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.22s, transform 0.22s;
+    pointer-events: none;
+    box-shadow: 0 16px 40px rgba(25,21,18,0.26);
+    letter-spacing: 0.01em;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.warn { background: var(--gold-deep); }
+
+  /* ---------- 状态标记 ---------- */
   .section-status {
     float: right;
     font-size: 11px;
-    color: var(--sub);
-    font-weight: 400;
+    color: #B3A79E;
+    font-weight: 700;
+  }
+
+  /* ---------- 页脚 ---------- */
+  .foot {
+    text-align: center;
+    color: #A79C93;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 26px;
+    margin-bottom: 12px;
   }
 </style>
 </head>
 <body>
 
-<h1>🤖 Agent 定制 · 需求梳理</h1>
-<div class="subtitle">花 15 分钟填完。不用管技术能不能实现——<b>只说现在的痛点和想要的效果</b>。<br>填完点底部按钮 → 一键复制 → 发给我，24 小时内出方案和报价。</div>
+<div class="brandbar">
+  <div class="brand-pill"><span class="dot"></span>AI 定制服务 · 需求诊断</div>
+  <div class="brand-en">Automation Brief</div>
+</div>
+
+<h1>把你的重复劳动<br>交给 AI 跑</h1>
+<div class="subtitle">花 15 分钟填完。不用管技术能不能实现——<b>只说现在的痛点和想要的效果</b>。<br>填完点底部按钮 → 一键复制 → 发给我，24 小时内出方案与报价。</div>
 
 <div class="progress-wrap">
   <div class="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
-  <div class="progress-text" id="progress-text">0/10</div>
+  <div class="progress-text" id="progress-text">已完成 0/10</div>
 </div>
 
 <!-- Toast -->
@@ -290,9 +517,9 @@
   </div>
 </div>
 
-<!-- 场景多选 -->
+<!-- 能力 -->
 <div class="section">
-  <div class="section-num alt">✦</div>
+  <div class="section-num alt">能力</div>
   <span class="section-title">你要哪些能力</span>
   <span class="section-status" id="stat-scene"></span>
   <div class="section-hint">勾上你想要的，拿不准也没事——后面正文里说清楚就行。</div>
@@ -302,7 +529,7 @@
     <label><input type="checkbox" name="scene" value="邮箱监控/自动回复"><span>邮箱监控/自动回复</span></label>
     <label><input type="checkbox" name="scene" value="数据抓取/监控"><span>数据抓取/监控</span></label>
     <label><input type="checkbox" name="scene" value="编程/脚本开发"><span>编程/脚本开发</span></label>
-    <label><input type="checkbox" name="scene" value="电商运营（核价/上架/客服/报表）"><span>电商运营</span></label>
+    <label><input type="checkbox" name="scene" value="电商运营（上架/客服/报表）"><span>电商运营</span></label>
     <label><input type="checkbox" name="scene" value="制作软件/工具"><span>制作软件/工具</span></label>
     <label><input type="checkbox" name="scene" value="网站运营"><span>网站运营</span></label>
     <label><input type="checkbox" name="scene" value="做图（批量出图/改图）"><span>做图</span></label>
@@ -310,11 +537,11 @@
     <label><input type="checkbox" name="scene" value="其他"><span>其他</span></label>
   </div>
   <div class="cost-note">
-    <b>💰 费用提示（先看一眼，免得报价时落差）</b>
+    <span class="ct">💰 费用提示 · 先看一眼，免得报价时落差</span>
     <span class="tier">· 文本类（表格、文案、邮件、数据、编程）—— 成本最低，报价最友好</span>
     <span class="tier">· 图片类（批量出图、改图、生成配图）—— 成本中等，按张计费</span>
-    <span class="tier">· <span class="hot">视频类（生成视频、批量剪辑、混剪）—— 成本最高</span>，按生成次数和算力计费</span>
-    <span class="tier">原因很简单：视频和图片是模型一次一次跑出来的，跑一次付一次钱；文本类便宜。所以<b>视频、图片类的报价会明显高于文本类</b>，这是行业成本结构，不是我们想多收。</span>
+    <span class="tier">· <span class="hot">视频类（生成视频、批量剪辑、混剪）—— 成本最高</span>，按生成次数与算力计费</span>
+    <span class="tier">原因很简单：视频和图片是模型一次一次跑出来的，跑一次付一次钱；文本类便宜。<b>所以视频、图片类的报价会明显高于文本类</b>——这是行业成本结构，不是我们想多收。</span>
   </div>
 </div>
 
@@ -324,7 +551,7 @@
   <span class="section-title">业务场景</span>
   <span class="section-status" id="stat-1"></span>
   <div class="section-hint">你是做什么行业的？什么业务？你在这个业务里扮演什么角色？（老板/运营/销售/操盘手）</div>
-  <div class="chips quick" id="quick-ind" style="margin-bottom:10px;">
+  <div class="chips quick" id="quick-ind">
     <label data-ind="炒股"><span>炒股</span></label>
     <label data-ind="招商"><span>招商</span></label>
     <label data-ind="电商"><span>电商</span></label>
@@ -347,8 +574,8 @@
   <div class="section-num">3</div>
   <span class="section-title">理想状态</span>
   <span class="section-status" id="stat-3"></span>
-  <div class="section-hint">你希望 Agent 帮你做什么？用日常语言说。有现成的流程/SOP 文档直接发过来。</div>
-  <textarea id="q3" placeholder="比如：每周末自动出一份经营分析推到我飞书 / 每天收盘自动扫描持仓，达标了发信号 / 供应商报价一发来就自动核价出结果"></textarea>
+  <div class="section-hint">你希望 AI 帮你做什么？用日常语言说。有现成的流程/SOP 文档直接发过来。</div>
+  <textarea id="q3" placeholder="比如：每周末自动出一份经营分析推到我飞书 / 每天收盘自动扫描持仓，达标了发信号 / 整条重复流程自动化——数据自动汇总、单据自动生成、报表自动推送"></textarea>
 </div>
 
 <!-- 4 -->
@@ -356,8 +583,8 @@
   <div class="section-num">4</div>
   <span class="section-title">数据来源</span>
   <span class="section-status" id="stat-4"></span>
-  <div class="section-hint">Agent 需要读哪些数据？数据是固定的还是每天变化的？有现成的数据源还是需要 Agent 自己抓取？</div>
-  <textarea id="q4" placeholder="比如：飞书多维表格里的商户营业额 / 股票行情数据 / 1688或淘宝后台导出的报价单Excel / 工厂ERP导出的订单表 / 客户发来的邮件附件"></textarea>
+  <div class="section-hint">AI 需要读哪些数据？数据是固定的还是每天变化的？有现成的数据源还是需要它自己抓取？</div>
+  <textarea id="q4" placeholder="比如：飞书多维表格里的商户营业额 / 股票行情数据 / 后台导出的Excel报价单 / 工厂ERP导出的订单表 / 客户发来的邮件附件"></textarea>
 </div>
 
 <!-- 5 -->
@@ -365,8 +592,8 @@
   <div class="section-num">5</div>
   <span class="section-title">产出物</span>
   <span class="section-status" id="stat-5"></span>
-  <div class="section-hint">Agent 最终要给你什么？（推送消息 / 自动填表 / 生成报告 / 自动回复客户 / 出图出片）给谁看？（你自己 / 团队成员 / 客户）</div>
-  <textarea id="q5" placeholder="比如：一条飞书消息，包含今日操作建议 / 自动填好的月度经营分析报告 / 一份核价结果Excel / 每天18点推给客户的跟单进度 / 一批可直接上架的详情图"></textarea>
+  <div class="section-hint">最终要给你什么？（推送消息 / 自动填表 / 生成报告 / 自动回复客户 / 出图出片）给谁看？（你自己 / 团队成员 / 客户）</div>
+  <textarea id="q5" placeholder="比如：一条飞书消息，包含今日操作建议 / 一套跑起来的自动化流程（原来3个人干的活，机器自动干） / 每天18点推给客户的跟单进度"></textarea>
 </div>
 
 <!-- 6 -->
@@ -376,15 +603,15 @@
   <span class="section-status" id="stat-6"></span>
   <div class="section-hint">什么时候用？几个人用？</div>
 
-  <div style="margin-bottom:10px; font-size:13px; color:var(--sub);">频率</div>
-  <div class="radio-group" id="rg-freq">
+  <div style="margin-bottom:10px; font-size:12.5px; color:var(--sub); font-weight:700;">频率</div>
+  <div class="radio-group plain" id="rg-freq">
     <label><input type="radio" name="freq" value="每天"><span>每天</span></label>
     <label><input type="radio" name="freq" value="每周"><span>每周</span></label>
     <label><input type="radio" name="freq" value="实时"><span>实时</span></label>
     <label><input type="radio" name="freq" value="触发式"><span>触发式</span></label>
   </div>
 
-  <div style="margin-top:12px; font-size:13px; color:var(--sub);">使用人数</div>
+  <div style="margin-top:14px; font-size:12.5px; color:var(--sub); font-weight:700;">使用人数</div>
   <input type="text" id="q6_users" placeholder="比如：我自己用 / 我+2个团队成员 / 全公司10个人">
 </div>
 
@@ -393,8 +620,25 @@
   <div class="section-num">7</div>
   <span class="section-title">预算范围</span>
   <span class="section-status" id="stat-7"></span>
-  <div class="section-hint">你愿意为这件事投入多少？（月付 / 一次性）不需要精确数字，给个区间就行。<br>提醒：勾了视频/图片场景的，因为算力成本摆在那，报价会比纯文本类高一档。</div>
-  <input type="text" id="q7" placeholder="比如：月付 1000-3000，或者 5000/月以上定制 / 一次性 1-3 万">
+  <div class="section-hint">不需要精确数字，<b>点一个档位</b>，或直接在下面写你的区间。勾了视频/图片能力的，因为算力成本摆在那，报价会比纯文本类高一档。</div>
+  <div class="tiers" id="rg-tier">
+    <label><input type="radio" name="tier" value="标准版 ¥1,000-3,000/月">
+      <span class="tn">标准版</span>
+      <span class="tp">¥1,000–3,000<span class="u"> /月</span></span>
+      <span class="td">办公助手 · 团队/岗位日常提效，报表、跟单、归集、批量处理</span>
+    </label>
+    <label><input type="radio" name="tier" value="定制版 ¥5,000/月以上">
+      <span class="tn">定制版</span>
+      <span class="tp">¥5,000+<span class="u"> /月</span></span>
+      <span class="td">老板的私人助手 · 深度定制、实时工作流、多模块并行</span>
+    </label>
+    <label><input type="radio" name="tier" value="项目制 ¥12,000-28,000/单（企业自动化改造）">
+      <span class="tn">项目制</span>
+      <span class="tp">¥1.2–2.8万<span class="u"> /单</span></span>
+      <span class="td">企业自动化改造 · 一次性交付，把整条业务流的重复劳动交给机器</span>
+    </label>
+  </div>
+  <input type="text" id="q7" placeholder="比如：标准版 1000-3000/月 或 定制版 5000/月以上 或 项目制一次性 1.2-2.8万">
 </div>
 
 <!-- 8 -->
@@ -406,17 +650,19 @@
   <textarea id="q8" placeholder="选填，没有就空着"></textarea>
 </div>
 
+<div class="foot">AI 定制服务 · 需求诊断 · Confidential</div>
+
 <!-- 按钮 -->
 <div class="btn-bar" id="btn-bar">
   <button class="btn btn-secondary" onclick="clearAll()">清空</button>
-  <button class="btn btn-primary" onclick="generate()">📋 生成摘要 & 复制</button>
+  <button class="btn btn-primary" onclick="generate()">📋 生成摘要并复制</button>
 </div>
 
 <script>
 (function() {
   // ===== 自动保存到 localStorage =====
   var fields = ['q1','q2','q3','q4','q5','q6_users','q7','q8'];
-  var SAVE_KEY = 'agent_prd_draft_v2';
+  var SAVE_KEY = 'agent_prd_draft_v3';
 
   function checkedList(name) {
     return Array.prototype.map.call(
@@ -435,27 +681,27 @@
     data['freq'] = freq ? freq.value : '';
     var dir = document.querySelector('input[name="dir"]:checked');
     data['dir'] = dir ? dir.value : '';
+    var tier = document.querySelector('input[name="tier"]:checked');
+    data['tier'] = tier ? tier.value : '';
     data['scenes'] = checkedList('scene');
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));
   }
 
   function load() {
     try {
-      var raw = localStorage.getItem(SAVE_KEY) || localStorage.getItem('agent_prd_draft');
+      var raw = localStorage.getItem(SAVE_KEY) || localStorage.getItem('agent_prd_draft_v2') || localStorage.getItem('agent_prd_draft');
       if (!raw) return;
       var data = JSON.parse(raw);
       fields.forEach(function(id) {
         var el = document.getElementById(id);
         if (el && data[id]) el.value = data[id];
       });
-      if (data.freq) {
-        var r = document.querySelector('input[name="freq"][value="' + data.freq + '"]');
-        if (r) r.checked = true;
-      }
-      if (data.dir) {
-        var d = document.querySelector('input[name="dir"][value="' + data.dir + '"]');
-        if (d) d.checked = true;
-      }
+      ['freq','dir','tier'].forEach(function(nm) {
+        if (data[nm]) {
+          var r = document.querySelector('input[name="' + nm + '"][value="' + data[nm] + '"]');
+          if (r) r.checked = true;
+        }
+      });
       (data.scenes || []).forEach(function(v) {
         var c = document.querySelector('input[name="scene"][value="' + v + '"]');
         if (c) c.checked = true;
@@ -463,15 +709,20 @@
     } catch(e) {}
   }
 
-  // 所有输入框自动保存
+  // 自动保存
   document.querySelectorAll('textarea, input[type="text"]').forEach(function(el) {
-    el.addEventListener('input', function() {
-      save();
-      updateProgress();
-    });
+    el.addEventListener('input', function() { save(); updateProgress(); });
   });
   document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(function(el) {
+    el.addEventListener('change', function() { save(); updateProgress(); });
+  });
+
+  // ===== 档位选择 → 自动写入预算框 =====
+  document.querySelectorAll('input[name="tier"]').forEach(function(el) {
     el.addEventListener('change', function() {
+      var q7 = document.getElementById('q7');
+      q7.value = el.value;
+      q7.dispatchEvent(new Event('input', {bubbles:true}));
       save();
       updateProgress();
     });
@@ -499,32 +750,26 @@
     var filled = 0;
     var total = 10;
 
-    // Q0 方向
     var dirChecked = document.querySelector('input[name="dir"]:checked');
     if (dirChecked) filled++;
     document.getElementById('stat-0').textContent = dirChecked ? '✓' : '';
 
-    // 场景
     var scenes = checkedList('scene');
     if (scenes.length) filled++;
     document.getElementById('stat-scene').textContent = scenes.length ? '✓' : '';
 
-    // Q1-Q5: textarea
     for (var i = 1; i <= 5; i++) {
       if (document.getElementById('q'+i).value.trim()) filled++;
       document.getElementById('stat-'+i).textContent = document.getElementById('q'+i).value.trim() ? '✓' : '';
     }
-    // Q6: radio + text
     var freqChecked = document.querySelector('input[name="freq"]:checked');
     var usersFilled = document.getElementById('q6_users').value.trim();
     if (freqChecked || usersFilled) filled++;
     document.getElementById('stat-6').textContent = (freqChecked || usersFilled) ? '✓' : '';
 
-    // Q7
     if (document.getElementById('q7').value.trim()) filled++;
     document.getElementById('stat-7').textContent = document.getElementById('q7').value.trim() ? '✓' : '';
 
-    // Q8 选填，填了也计入
     if (document.getElementById('q8').value.trim()) {
       filled++;
       document.getElementById('stat-8').textContent = '✓';
@@ -534,7 +779,7 @@
 
     var pct = Math.round((filled / total) * 100);
     document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-text').textContent = filled + '/' + total;
+    document.getElementById('progress-text').textContent = '已完成 ' + filled + '/' + total;
   }
 
   // ===== 生成摘要 =====
@@ -543,6 +788,8 @@
     var freqVal = freq ? freq.value : '未填';
     var dir = document.querySelector('input[name="dir"]:checked');
     var dirVal = dir ? dir.value : '未填';
+    var tier = document.querySelector('input[name="tier"]:checked');
+    var tierVal = tier ? tier.value : '未选';
     var scenes = checkedList('scene');
     var hiCost = scenes.some(function(s) {
       return s.indexOf('视频') >= 0 || s.indexOf('图') >= 0;
@@ -554,12 +801,12 @@
     }
 
     var lines = [];
-    lines.push('═══ Agent定制需求梳理 ═══', '');
+    lines.push('═══ AI 定制 · 需求诊断 ═══', '');
     lines.push('■ 0. 合作方向');
     lines.push('产品方向：' + dirVal);
     lines.push('需要能力：' + (scenes.length ? scenes.join('、') : '未填'));
     if (hiCost) {
-      lines.push('⚠️ 含视频/图片能力：按生成次数和算力计费，成本明显高于文本类，报价需上浮一档');
+      lines.push('⚠️ 含视频/图片能力：按生成次数与算力计费，成本明显高于文本类，报价需上浮一档');
     }
     lines.push('');
     lines.push('■ 1. 业务场景', v('q1'), '');
@@ -570,16 +817,18 @@
     lines.push('■ 6. 使用频率 & 人数');
     lines.push('频率：' + freqVal + '   人数：' + v('q6_users'));
     lines.push('');
-    lines.push('■ 7. 预算', v('q7'), '');
+    lines.push('■ 7. 预算');
+    lines.push('意向档位：' + tierVal);
+    lines.push('自填预算：' + v('q7'));
+    lines.push('');
     lines.push('■ 8. 补充', v('q8'));
     lines.push('', '─── 以上 ───');
 
     var text = lines.join('\n');
 
-    // 复制到剪贴板
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function() {
-        showToast('✅ 已复制！贴到飞书发给老K');
+        showToast('✅ 已复制！贴到飞书发给我');
       }).catch(function() {
         fallbackCopy(text);
       });
@@ -599,9 +848,9 @@
     ta.select();
     try {
       document.execCommand('copy');
-      showToast('✅ 已复制！贴到飞书发给老K');
+      showToast('✅ 已复制！贴到飞书发给我');
     } catch(e) {
-      showToast('⚠️ 复制失败，请截图发给老K', true);
+      showToast('⚠️ 复制失败，请截图发给我', true);
     }
     document.body.removeChild(ta);
   }
